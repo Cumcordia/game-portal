@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
@@ -16,11 +23,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Homepage</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="releases.html">Releases</a></li>
+                    <li class="nav-item"><a class="nav-link" href="releases.html">Release calendar</a></li>
                     <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Conctacts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -29,11 +36,11 @@
     <main>
         <div class="container my-4">
 
-            <section class="hero-section text-left">
+            <section class="hero-section text-start">
                 <div class="col-lg-7">
                     <span class="badge bg-danger mb-2">Main Announcement</span>
-                    <h1 class="display-4 fw-bold">Grand Theft Auto VI</h1>
-                    <p class="lead">A first look at the return to Vice City. Full details on the upcoming blockbuster, a trailer breakdown, and plot specifics.</p>
+                    <h1 class="display-4 fw-bold text-white">Grand Theft Auto VI</h1>
+                    <p class="lead text-white">A first look at the return to Vice City. Full details on the upcoming blockbuster, a trailer breakdown, and plot specifics.</p>
                     <a href="#" class="btn btn-custom mt-2">Read more</a>
                 </div>
             </section>
@@ -58,11 +65,11 @@
                         </a>
                         <a href="#" class="top-news-item">
                             <span class="top-news-num">4</span>
-                            <div>10 Hidden Details in the Elden Ring DLC ​​Trailer</div>
+                            <div>10 Hidden Details in the Elden Ring DLC Trailer</div>
                         </a>
                         <a href="#" class="top-news-item">
                             <span class="top-news-num">5</span>
-                            <div>Итоги распродажи в профильных магазинах</div>
+                            <div>Results of sales at specialized stores</div>
                         </a>
                     </div>
                 </div>
@@ -136,8 +143,23 @@
         </div>
     </main>
 
-    <footer class="text-center text-white bg-dark">
-        <p>2026 GAMEPORTAL</p>
+    <footer class="text-center text-white bg-dark py-4 mt-5">
+      <div class="container">
+        <div class="mb-2">
+          <a href="#" class="text-secondary text-decoration-none me-3"
+            ><i class="bi bi-discord"></i> Discord</a
+          >
+          <a href="#" class="text-secondary text-decoration-none me-3"
+            ><i class="bi bi-youtube"></i> YouTube</a
+          >
+          <a href="#" class="text-secondary text-decoration-none"
+            ><i class="bi bi-telegram"></i> Telegram</a
+          >
+        </div>
+        <p class="small text-secondary mb-0">
+          &copy; 2026 GAMEPORTAL. All rights reserved.
+        </p>
+      </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
