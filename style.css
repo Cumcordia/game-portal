@@ -123,6 +123,7 @@ footer {
 /* mans start */
 .releases-title {
     margin-bottom: 30px;
+    color:#b0b0b0;
 }
 
 .releases-grid {
@@ -206,8 +207,6 @@ footer {
     font-weight: 600;
 }
 /* mans end */
-  color: #c3073f;
-}
 
 .top-news-num {
   font-size: 1.5rem;
@@ -400,4 +399,3 @@ footer {
   .gallery-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-}
