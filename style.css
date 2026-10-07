@@ -1,17 +1,17 @@
 body {
-    background-color: var(#1A1A1D);
+    background-color: #1A1A1D;
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .navbar {
     background-color: #111113;
-    border-bottom: 2px solid var(#6F2232);
+    border-bottom: 2px solid #6F2232;
 }
 
 .navbar-brand {
     font-weight: bold;
-    color: var(#C3073F) !important;
+    color: #C3073F !important;
     font-size: 1.5rem;
 }
 
@@ -20,21 +20,23 @@ body {
     transition: color 0.3s;
 }
 
-.nav-link:hover, .nav-link.active {
-    color: var(#C3073F) !important;
+.nav-link:hover,
+.nav-link.active {
+    color: #C3073F !important;
 }
 
 .hero-section {
-    background: linear-gradient(180deg, rgba(26,26,29,0.4) 0%, var(#1A1A1D) 100%), 
-                url('https://picsum.photos/1200/500?game') center/cover no-repeat;
+    background:
+        linear-gradient(180deg, rgba(26, 26, 29, 0.4) 0%, #1A1A1D 100%),
+        url('https://picsum.photos/1200/500?game') center/cover no-repeat;
     border-radius: 12px;
     padding: 80px 40px;
     margin-bottom: 40px;
-    border: 1px solid var(#4E4E50);
+    border: 1px solid #4E4E50;
 }
 
 .btn-custom {
-    background-color: var(#950740);
+    background-color: #950740;
     color: #fff;
     border: none;
     padding: 10px 25px;
@@ -43,13 +45,13 @@ body {
 }
 
 .btn-custom:hover {
-    background-color: var(#C3073F);
+    background-color: #C3073F;
     color: #fff;
 }
 
 .card-news {
     background-color: #242427;
-    border: 1px solid var(#4E4E50);
+    border: 1px solid #4E4E50;
     border-radius: 8px;
     overflow: hidden;
     height: 100%;
@@ -58,7 +60,7 @@ body {
 
 .card-news:hover {
     transform: translateY(-5px);
-    border-color: var(#C3073F);
+    border-color: #C3073F;
 }
 
 .card-news img {
@@ -67,7 +69,7 @@ body {
 }
 
 .badge-platform {
-    background-color: var(#6F2232);
+    background-color: #6F2232;
     color: #fff;
     font-size: 0.75rem;
     margin-right: 5px;
@@ -75,16 +77,16 @@ body {
 
 .sidebar-box {
     background-color: #242427;
-    border: 1px solid var(#4E4E50);
+    border: 1px solid #4E4E50;
     border-radius: 8px;
     padding: 20px;
 }
 
 .sidebar-title {
-    border-bottom: 2px solid var(#950740);
+    border-bottom: 2px solid #950740;
     padding-bottom: 10px;
     margin-bottom: 15px;
-    color: var(#C3073F);
+    color: #C3073F;
 }
 
 .top-news-item {
@@ -97,23 +99,23 @@ body {
 }
 
 .top-news-item:hover {
-    color: var(#C3073F);
+    color: #C3073F;
 }
 
 .top-news-num {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(#950740);
+    color: #950740;
     margin-right: 15px;
     min-width: 25px;
 }
 
 footer {
     background-color: #111113;
-    border-top: 1px solid var(#4E4E50);
+    border-top: 1px solid #4E4E50;
     margin-top: 50px;
     padding: 20px 0;
-    color: var(#4E4E50);
+    color: #4E4E50;
 }
 
 /* mans */
@@ -168,4 +170,57 @@ footer {
     font-size: 0.9rem;
     margin: 0;
 }
-/* mans */
+
+/* mans start */
+.releases-title {
+    margin-bottom: 30px;
+}
+
+.releases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.release-card {
+    background-color: #242427;
+    border: 1px solid #4E4E50;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.release-card:hover {
+    transform: translateY(-5px);
+    border-color: #C3073F;
+}
+
+.release-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.release-card_body {
+    padding: 16px;
+}
+
+.release-card_title {
+    font-size: 1.15rem;
+    margin: 10px 0 6px;
+}
+
+.release-card_date {
+    color: #C3073F;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.release-card_text {
+    color: #d1d1d1;
+    font-size: 0.9rem;
+    margin: 0;
+}
+/* mans end */
