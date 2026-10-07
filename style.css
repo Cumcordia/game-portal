@@ -238,6 +238,60 @@ footer {
   }
 }
 @media (min-width: 992px) {
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* mans contact start */
+.contact-mini {
+    background-color: #242427;
+    border: 1px solid var(--border-gray, #4E4E50);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-mini:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-red, #C3073F);
+}
+
+.contact-mini_head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.contact-mini_avatar {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border: 2px solid var(--primary-red, #C3073F);
+}
+
+.contact-mini_list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-style: normal;
+    font-size: 0.85rem;
+}
+
+.contact-mini_list a {
+    color: #d1d1d1;
+    text-decoration: none;
+    word-break: break-word;
+    transition: color 0.2s ease;
+}
+
+.contact-mini_list a:hover,
+.contact-mini_list a:focus {
+    color: var(--primary-red, #C3073F);
+}
+
+.contact-mini_list i {
+    color: var(--primary-red, #C3073F);
+    margin-right: 6px;
+}
+/* mans contact end */
   .gallery-grid {
     grid-template-columns: repeat(3, 1fr);
   }
