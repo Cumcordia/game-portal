@@ -115,3 +115,45 @@ footer {
     padding: 20px 0;
     color: var(#4E4E50);
 }
+
+
+.about-hero {
+    border: 1px solid var(--border-gray, #4E4E50);
+}
+
+.stat-box, .bg-box {
+    border: 1px solid var(--border-gray, #4E4E50);
+}
+
+.stat-num {
+    color: var(--primary-red, #C3073F);
+    font-size: 2.2rem;
+}
+
+.team-card {
+    border: 1px solid var(--border-gray, #4E4E50);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary-red, #C3073F);
+}
+
+.team-avatar {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border: 3px solid var(--primary-red, #C3073F);
+}
+
+.social-link {
+    color: #d1d1d1;
+    font-size: 1.2rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-link:hover, .social-link:focus {
+    color: var(--primary-red, #C3073F);
+    transform: scale(1.15);
+}

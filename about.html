@@ -1,37 +1,241 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>About Us</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - GAMEPORTAL</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <!-- Header & Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">GAMEPORTAL</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Главная</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">О нас</a></li>
-                    <li class="nav-item"><a class="nav-link" href="releases.html">Календарь релизов</a></li>
-                    <li class="nav-item"><a class="nav-link" href="gallery.html">Галерея</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="index.html">GAMEPORTAL</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="about.html">About us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="releases.html">Releases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gallery.html">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contacts</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
-    <main>
-        
+
+    <!-- Main Content Area -->
+    <main class="container my-5">
+      <!-- Mission Section -->
+      <section class="about-hero text-center p-5 mb-5 rounded">
+        <span class="badge bg-danger mb-3 px-3 py-2 text-uppercase"
+          >Who We Are</span
+        >
+        <h1 class="display-4 fw-bold">Fueling the Gamer Community</h1>
+        <p class="lead text-secondary mx-auto mt-3" style="max-width: 750px">
+          GAMEPORTAL is an independent media platform dedicated to honest
+          reviews, industry news, and spotlighting the best gaming releases
+          across all platforms.
+        </p>
+      </section>
+
+      <!-- Portal Stats -->
+      <section class="mb-5">
+        <div class="row g-4 text-center">
+          <div class="col-6 col-md-4">
+            <div class="stat-box p-4 rounded">
+              <h2 class="stat-num fw-bold">500+</h2>
+              <p class="text-secondary mb-0">Game Reviews</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="stat-box p-4 rounded">
+              <h2 class="stat-num fw-bold">120K+</h2>
+              <p class="text-secondary mb-0">Monthly Readers</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="stat-box p-4 rounded">
+              <h2 class="stat-num fw-bold">100%</h2>
+              <p class="text-secondary mb-0">Unbiased Opinions</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Editorial Team -->
+      <section class="mb-5">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold border-bottom border-danger d-inline-block pb-2">
+            Meet the Editorial Team
+          </h2>
+        </div>
+
+        <div class="row g-4">
+          <!-- Member 1 -->
+          <div class="col-md-4">
+            <div class="team-card text-center p-4 rounded">
+              <img
+                src="https://avatars.githubusercontent.com/u/150314518?v=4"
+                alt="Member 1"
+                class="rounded-circle team-avatar mb-3"
+                loading="lazy"
+              />
+              <h5 class="fw-bold mb-1">Alikhan</h5>
+              <p class="text-danger small mb-3">Lead Editor & Architecture</p>
+              <p class="text-secondary small">
+                Specializes in AAA blockbuster reviews, core system breakdowns,
+                and RPG releases.
+              </p>
+              <div class="team-socials d-flex justify-content-center gap-3">
+                <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                <a href="#" class="social-link"
+                  ><i class="bi bi-twitter-x"></i
+                ></a>
+                <a href="#" class="social-link"
+                  ><i class="bi bi-linkedin"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 2 -->
+          <div class="col-md-4">
+            <div class="team-card text-center p-4 rounded">
+              <img
+                src="https://avatars.githubusercontent.com/u/110974052?v=4"
+                alt="Member 2"
+                class="rounded-circle team-avatar mb-3"
+                loading="lazy"
+              />
+              <h5 class="fw-bold mb-1">Sergey</h5>
+              <p class="text-danger small mb-3">
+                News Reporter & Release Analyst
+              </p>
+              <p class="text-secondary small">
+                Covers real-time industry updates, release schedules, esports,
+                and patch notes.
+              </p>
+              <div class="team-socials d-flex justify-content-center gap-3">
+                <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                <a href="#" class="social-link"
+                  ><i class="bi bi-twitter-x"></i
+                ></a>
+                <a href="#" class="social-link"
+                  ><i class="bi bi-linkedin"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 3 -->
+          <div class="col-md-4">
+            <div class="team-card text-center p-4 rounded">
+              <img
+                src="https://avatars.githubusercontent.com/u/239235377?v=4"
+                alt="Member 3"
+                class="rounded-circle team-avatar mb-3"
+                loading="lazy"
+              />
+              <h5 class="fw-bold mb-1">Abilmansur</h5>
+              <p class="text-danger small mb-3">
+                UI/UX Designer & Community Lead
+              </p>
+              <p class="text-secondary small">
+                Manages portal visual aesthetics, interactive features,
+                community outreach, and feedback.
+              </p>
+              <div class="team-socials d-flex justify-content-center gap-3">
+                <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                <a href="#" class="social-link"
+                  ><i class="bi bi-twitter-x"></i
+                ></a>
+                <a href="#" class="social-link"
+                  ><i class="bi bi-linkedin"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Our Core Values -->
+      <section class="p-4 rounded bg-box">
+        <h3 class="fw-bold text-center mb-4">Our Core Values</h3>
+        <div class="row g-4 text-center">
+          <div class="col-md-4">
+            <i class="bi bi-shield-check display-6 text-danger mb-2"></i>
+            <h5 class="fw-bold">Honest Journalism</h5>
+            <p class="text-secondary small">
+              We never take sponsorships for score bumps. Our reviews are 100%
+              genuine.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <i class="bi bi-lightning-charge display-6 text-danger mb-2"></i>
+            <h5 class="fw-bold">Speed & Precision</h5>
+            <p class="text-secondary small">
+              Delivering verified gaming news and patch updates as they happen
+              worldwide.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <i class="bi bi-people display-6 text-danger mb-2"></i>
+            <h5 class="fw-bold">Community First</h5>
+            <p class="text-secondary small">
+              Built by gamers, for gamers. We listen and engage with our
+              audience every day.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="text-center text-white bg-dark">
-        <p>2026 GAMEPORTAL</p>
+    <!-- Footer -->
+    <footer class="text-center text-white bg-dark py-4 mt-5">
+      <div class="container">
+        <div class="mb-2">
+          <a href="#" class="text-secondary text-decoration-none me-3"
+            ><i class="bi bi-discord"></i> Discord</a
+          >
+          <a href="#" class="text-secondary text-decoration-none me-3"
+            ><i class="bi bi-youtube"></i> YouTube</a
+          >
+          <a href="#" class="text-secondary text-decoration-none"
+            ><i class="bi bi-telegram"></i> Telegram</a
+          >
+        </div>
+        <p class="small text-secondary mb-0">
+          &copy; 2026 GAMEPORTAL. All rights reserved.
+        </p>
+      </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>
