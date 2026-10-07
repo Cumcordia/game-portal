@@ -28,7 +28,7 @@ body {
 .hero-section {
   background:
     linear-gradient(180deg, rgba(26, 26, 29, 0.4) 0%, var(#1a1a1d) 100%),
-    url("https://picsum.photos/1200/500?game") center/cover no-repeat;
+    url("pics/gtavi.jpg") center/cover no-repeat;
   border-radius: 12px;
   padding: 80px 40px;
   margin-bottom: 40px;

@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
     <title>Gallery</title>
 </head>
 <body>
@@ -31,35 +38,50 @@
 
             <div class="gallery-grid">
                 <figure class="gallery-item">
-                    <img src="pics/cyb.png" alt="Скриншот 1">
+                    <img src="pics/cyb.png" alt="Screenshot">
                     <figcaption class="text-white text-center">Cyberpunk 2077</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                    <img src="pics/rob.jpg" alt="Скриншот 2">
+                    <img src="pics/rob.jpg" alt="Screenshot 2">
                     <figcaption class="text-white text-center">Roblox</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                    <img src="pics/gta.jpg" alt="Скриншот 3">
+                    <img src="pics/gta.jpg" alt="Screenshot 3">
                     <figcaption class="text-white text-center">GTA 5</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                    <img src="pics/min.jpg" alt="Скриншот 4">
-                    <figcaption class="text-white text-center">Minecraft</figcaption>
+                    <img src="pics/min.jpg" alt="Screenshot 4">
+                    <figcaption class="text-white text-center" loading="lazy">Minecraft</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                    <img src="pics/forz.jpg" alt="Скриншот 5">
-                    <figcaption class="text-white text-center">Forza Horizon 6</figcaption>
+                    <img src="pics/forz.jpg" alt="Screenshot 5">
+                    <figcaption class="text-white text-center" loading="lazy">Forza Horizon 6</figcaption>
                 </figure>
                 <figure class="gallery-item">
-                    <img src="pics/cs.webp" alt="Скриншот 6">
-                    <figcaption class="text-white text-center">CS 2</figcaption>
+                    <img src="pics/cs.webp" alt="Screenshot 6">
+                    <figcaption class="text-white text-center" loading="lazy">CS 2</figcaption>
                 </figure>
             </div>
         </div>
     </main>
 
-    <footer class="text-center text-white bg-dark">
-        <p>2026 GAMEPORTAL</p>
+    <footer class="text-center text-white bg-dark py-4 mt-5">
+      <div class="container">
+        <div class="mb-2">
+          <a href="#" class="text-secondary text-decoration-none me-3"
+            ><i class="bi bi-discord"></i> Discord</a
+          >
+          <a href="#" class="text-secondary text-decoration-none me-3"
+            ><i class="bi bi-youtube"></i> YouTube</a
+          >
+          <a href="#" class="text-secondary text-decoration-none"
+            ><i class="bi bi-telegram"></i> Telegram</a
+          >
+        </div>
+        <p class="small text-secondary mb-0">
+          &copy; 2026 GAMEPORTAL. All rights reserved.
+        </p>
+      </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
