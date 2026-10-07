@@ -155,6 +155,7 @@ footer {
 }
 
 .release-card_title {
+    color:#d1d1d1;
     font-size: 1.15rem;
     margin: 10px 0 6px;
 }
@@ -169,5 +170,37 @@ footer {
     color: #d1d1d1;
     font-size: 0.9rem;
     margin: 0;
+}
+.releases-table caption {
+    color: var(--text-muted);
+    caption-side: top;
+    padding-bottom: 10px;
+}
+
+.releases-table tbody tr:nth-child(odd) {
+    background-color: var(--card-bg);
+}
+
+.releases-table tbody tr:nth-child(even) {
+    background-color: #2b2b2f;
+}
+
+.releases-table tbody tr {
+    transition: background-color 0.3s;
+}
+
+.releases-table tbody tr:hover,
+.releases-table tbody tr:focus {
+    background-color: #3a1a24;
+    outline: none;
+}
+
+.releases-table tbody tr:focus {
+    box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.releases-table .score {
+    color: var(--accent);
+    font-weight: 600;
 }
 /* mans end */
