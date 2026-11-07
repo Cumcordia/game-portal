@@ -1,0 +1,484 @@
+:root {
+  --bg: #1a1a1d;
+  --bg-dark: #111113;
+  --surface: #242427;
+  --surface-alt: #2b2b2f;
+  --row-hover: #3a1a24;
+
+  --border: #4e4e50;
+  --accent: #c3073f;
+  --accent-dark: #950740;
+  --accent-deep: #6f2232;
+
+  --text: #ffffff;
+  --text-soft: #d1d1d1;
+  --text-muted: #b0b0b0;
+
+  --radius: 8px;
+  --transition: 0.3s;
+}
+
+body {
+  background-color: var(--bg) !important;
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-news,
+.sidebar-box,
+.release-card,
+.about-hero,
+.stat-box,
+.bg-box,
+.team-card,
+.gallery-item,
+.contact-mini {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.card-news,
+.release-card,
+.team-card,
+.gallery-item,
+.contact-mini {
+  transition:
+    transform var(--transition) ease,
+    border-color var(--transition) ease,
+    box-shadow var(--transition) ease;
+}
+
+.card-news:hover,
+.release-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+}
+
+.navbar {
+  background-color: var(--bg-dark);
+  border-bottom: 2px solid var(--accent-deep);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: var(--accent) !important;
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-soft) !important;
+  transition: color var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent) !important;
+}
+
+.btn-custom {
+  background-color: var(--accent-dark);
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  font-weight: 600;
+  transition: background-color var(--transition);
+}
+
+.btn-custom:hover {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+.badge-platform {
+  background-color: var(--accent-deep);
+  color: #fff;
+  font-size: 0.75rem;
+  margin-right: 5px;
+}
+
+.hero-section {
+  background:
+    linear-gradient(180deg, rgba(26, 26, 29, 0.4) 0%, var(--bg) 100%),
+    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbGSjzvnfjp-W9rsa7jeVvK96Kwn6UBY5qTx9mFs9TyOOd9ngUWhxxOpQ&s=10") center/cover no-repeat;
+  border-radius: 12px;
+  padding: 80px 40px;
+  margin-bottom: 40px;
+  border: 1px solid var(--border);
+}
+
+.card-news {
+  overflow: hidden;
+  height: 100%;
+}
+
+.card-news img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.sidebar-box {
+  padding: 20px;
+}
+
+.sidebar-title {
+  border-bottom: 2px solid var(--accent-dark);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  color: var(--accent);
+}
+
+.top-news-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  text-decoration: none;
+  color: var(--text);
+  transition: color var(--transition);
+}
+
+.top-news-item:hover {
+  color: var(--accent);
+}
+
+.top-news-num {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-dark);
+  margin-right: 15px;
+  min-width: 25px;
+}
+
+.releases-title {
+  margin-bottom: 30px;
+  color: var(--text-muted);
+}
+
+.releases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.release-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.release-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.release-card_body {
+  padding: 16px;
+}
+
+.release-card_title {
+  color: var(--text-soft);
+  font-size: 1.15rem;
+  margin: 10px 0 6px;
+}
+
+.release-card_date {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.release-card_text {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.releases-table caption {
+  color: var(--text-muted);
+  caption-side: top;
+  padding-bottom: 10px;
+}
+
+.releases-table tbody tr {
+  transition: background-color var(--transition);
+}
+
+.releases-table tbody tr:nth-child(odd) {
+  background-color: var(--surface);
+}
+
+.releases-table tbody tr:nth-child(even) {
+  background-color: var(--surface-alt);
+}
+
+.releases-table tbody tr:hover,
+.releases-table tbody tr:focus {
+  background-color: var(--row-hover);
+  outline: none;
+}
+
+.releases-table tbody tr:focus {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.releases-table .score {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.about-hero,
+.stat-box,
+.bg-box,
+.team-card {
+  color: var(--text);
+}
+
+.about-hero p {
+  color: var(--text-muted);
+}
+
+.stat-num {
+  color: var(--accent);
+  font-size: 2.2rem;
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.team-card p.text-secondary {
+  color: var(--text-muted) !important;
+}
+
+.team-avatar {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+}
+
+.social-link {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.social-link:hover,
+.social-link:focus {
+  color: var(--accent);
+  transform: scale(1.15);
+}
+
+.gallery-title {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent-dark);
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 12%;
+}
+
+@media (min-width: 576px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.gallery-item {
+  margin: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 24px rgba(195, 7, 63, 0.25);
+}
+
+.gallery-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.gallery-item figcaption {
+  padding: 12px 15px;
+  font-weight: 600;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(10, 10, 12, 0.92);
+}
+
+.lightbox-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 70px;
+}
+
+.lightbox-figure {
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+  text-align: center;
+}
+
+.lightbox-figure img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 160px);
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(195, 7, 63, 0.25);
+}
+
+.lightbox-caption {
+  margin-top: 12px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.lightbox-counter {
+  margin-left: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+.lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: rgba(36, 36, 39, 0.8);
+  color: var(--text);
+  font-size: 1.4rem;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition);
+  z-index: 2;
+}
+
+.lightbox-arrow:hover,
+.lightbox-arrow:focus-visible {
+  background: var(--accent-dark);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.lightbox-prev {
+  left: 16px;
+}
+
+.lightbox-next {
+  right: 16px;
+}
+
+@media (max-width: 575.98px) {
+  .lightbox-inner {
+    padding: 60px 12px;
+  }
+
+  .lightbox-arrow {
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+}
+
+.contact-mini:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.contact-mini_head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.contact-mini_avatar {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+
+.contact-mini_list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-style: normal;
+  font-size: 0.85rem;
+}
+
+.contact-mini_list a {
+  color: var(--text-soft);
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 0.2s ease;
+}
+
+.contact-mini_list a:hover,
+.contact-mini_list a:focus {
+  color: var(--accent);
+}
+
+.contact-mini_list i {
+  color: var(--accent);
+  margin-right: 6px;
+}
+
+footer {
+  background-color: var(--bg-dark);
+  border-top: 1px solid var(--border);
+  margin-top: 50px;
+  padding: 20px 0;
+  color: var(--border);
+}

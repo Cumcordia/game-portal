@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <title>Gallery</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">GAMEPORTAL</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="releases.html">Release Calendar</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container my-5">
+            <h1 class="gallery-title">Gallery</h1>
+
+            <div class="gallery-grid">
+                <figure class="gallery-item" tabindex="0" role="button" aria-label="Open Cyberpunk 2077">
+                    <img src="https://static.cdprojektred.com/cms.cdprojektred.com/16x9_big/872822c5e50dc71f345416098d29fc3ae5cd26c1-1280x720.jpg" alt="Cyberpunk 2077 screenshot" loading="lazy">
+                    <figcaption class="text-white text-center">Cyberpunk 2077</figcaption>
+                </figure>
+                <figure class="gallery-item" tabindex="0" role="button" aria-label="Open Roblox">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV-aZnM4KmmZLonc7GmPVJGM38Ld3bfLx7qpwvNEblqQ&s=10" alt="Roblox screenshot" loading="lazy">
+                    <figcaption class="text-white text-center">Roblox</figcaption>
+                </figure>
+                <figure class="gallery-item" tabindex="0" role="button" aria-label="Open GTA 5">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSg98rG7DKygYLdTAMUXO9f-B1ArCkQGTKDTxtVEJ3_g&s=10" alt="GTA 5 screenshot" loading="lazy">
+                    <figcaption class="text-white text-center">GTA 5</figcaption>
+                </figure>
+                <figure class="gallery-item" tabindex="0" role="button" aria-label="Open Minecraft">
+                    <img src="https://minecraft.wiki/images/thumb/Wilderness_Bound_main_page_light.png/640px-Wilderness_Bound_main_page_light.png?02315" alt="Minecraft screenshot" loading="lazy">
+                    <figcaption class="text-white text-center">Minecraft</figcaption>
+                </figure>
+                <figure class="gallery-item" tabindex="0" role="button" aria-label="Open Forza Horizon 6">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZcpbJo2sfy3ltBG26b6m15tMRrXZ9IpYqnzyQ6Vh2JQ&s=10" alt="Forza Horizon 6 screenshot" loading="lazy">
+                    <figcaption class="text-white text-center">Forza Horizon 6</figcaption>
+                </figure>
+                <figure class="gallery-item" tabindex="0" role="button" aria-label="Open CS 2">
+                    <img src="https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_react/cs2/maps/dust2_back_plat_s2.jpg" alt="CS 2 screenshot" loading="lazy">
+                    <figcaption class="text-white text-center">CS 2</figcaption>
+                </figure>
+            </div>
+        </div>
+    </main>
+
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <div class="lightbox-inner">
+            <button type="button" class="btn-close btn-close-white lightbox-close" aria-label="Close"></button>
+            <button type="button" class="lightbox-arrow lightbox-prev" aria-label="Previous image">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <figure class="lightbox-figure">
+                <img id="lightbox-img" src="" alt="">
+                <figcaption class="lightbox-caption">
+                    <span id="lightbox-title"></span>
+                    <span class="lightbox-counter" id="lightbox-counter"></span>
+                </figcaption>
+            </figure>
+            <button type="button" class="lightbox-arrow lightbox-next" aria-label="Next image">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <footer class="text-center text-white bg-dark py-4 mt-5">
+      <div class="container">
+        <div class="mb-2">
+          <a href="#" class="text-secondary text-decoration-none me-3"><i class="bi bi-discord"></i> Discord</a>
+          <a href="#" class="text-secondary text-decoration-none me-3"><i class="bi bi-youtube"></i> YouTube</a>
+          <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-telegram"></i> Telegram</a>
+        </div>
+        <p class="small text-secondary mb-0">&copy; 2026 GAMEPORTAL. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-4.0.0.js" integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U=" crossorigin="anonymous"></script>
+    <script src="/js/gallery.js"></script>
+</body>
+</html>
