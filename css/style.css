@@ -100,7 +100,8 @@ body {
 .hero-section {
   background:
     linear-gradient(180deg, rgba(26, 26, 29, 0.4) 0%, var(--bg) 100%),
-    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbGSjzvnfjp-W9rsa7jeVvK96Kwn6UBY5qTx9mFs9TyOOd9ngUWhxxOpQ&s=10") center/cover no-repeat;
+    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbGSjzvnfjp-W9rsa7jeVvK96Kwn6UBY5qTx9mFs9TyOOd9ngUWhxxOpQ&s=10")
+      center/cover no-repeat;
   border-radius: 12px;
   padding: 80px 40px;
   margin-bottom: 40px;
