@@ -1,4 +1,7 @@
+// =================================================================
+// Abilmansur's Part
 // Registration form
+// =================================================================
 (() => {
   const form = document.getElementById("registration-form");
   if (!form) return;
@@ -244,3 +247,100 @@
 
   renderGames();
 })();
+
+// =================================================================
+// Sergey's Part
+// ABOUT PAGE: Dynamic Search, department filter, animated counter
+// =================================================================
+
+$(document).ready(function () {
+  initAboutSearchAndFilter();
+  initStatCounters();
+});
+
+// Requirement 2.2: search and category filter
+function initAboutSearchAndFilter() {
+  const $searchInput = $("#team-search-input");
+  const $filterButtons = $(".team-filter-btn");
+  const $cards = $(".team-card-wrapper");
+  const $noResults = $("#no-team-results");
+
+  if ($searchInput.length === 0 || $cards.length === 0) return;
+
+  let activeCategory = "all";
+
+  function applyFilter() {
+    const query = $searchInput.val().trim().toLowerCase();
+    let visibleCount = 0;
+
+    $cards.each(function () {
+      const $card = $(this);
+      const name = $card.find(".team-name").text().toLowerCase();
+      const role = $card.find(".team-role").text().toLowerCase();
+      const bio = $card.find(".team-bio").text().toLowerCase();
+      const tags = $card.find(".team-tags").text().toLowerCase();
+      const category = $card.attr("data-category") || "";
+
+      const matchesSearch =
+        name.includes(query) ||
+        role.includes(query) ||
+        bio.includes(query) ||
+        tags.includes(query);
+
+      const matchesCategory =
+        activeCategory === "all" || category === activeCategory;
+
+      if (matchesSearch && matchesCategory) {
+        $card.stop(true, true).fadeIn(200);
+        visibleCount++;
+      } else {
+        $card.stop(true, true).fadeOut(200);
+      }
+    });
+
+    if (visibleCount === 0) {
+      $noResults.stop(true, true).fadeIn(200);
+    } else {
+      $noResults.stop(true, true).hide();
+    }
+  }
+
+  // Real-time dynamic search on input
+  $searchInput.on("input", applyFilter);
+
+  // Category filter button click
+  $filterButtons.on("click", function () {
+    $filterButtons.removeClass("active");
+    $(this).addClass("active");
+    activeCategory = $(this).attr("data-category") || "all";
+    applyFilter();
+  });
+}
+
+// Animated numbers
+function initStatCounters() {
+  const $counters = $(".counter-value");
+  if ($counters.length === 0) return;
+
+  $counters.each(function () {
+    const $this = $(this);
+    const target = parseInt($this.attr("data-target"), 10);
+    const suffix = $this.attr("data-suffix") || "";
+
+    $({ countNum: 0 }).animate(
+      { countNum: target },
+      {
+        duration: 1500,
+        easing: "swing",
+        step: function () {
+          $this.text(Math.floor(this.countNum) + suffix);
+        },
+        complete: function () {
+          $this.text(this.countNum + suffix);
+        },
+      },
+    );
+  });
+}
+
+// =================================================================
