@@ -1,3 +1,4 @@
+// Registration form
 (() => {
   const form = document.getElementById("registration-form");
   if (!form) return;
@@ -124,4 +125,122 @@
 
     updateStrength();
   });
+})();
+// Release calendar: create and read
+(() => {
+  const form = document.getElementById("game-form");
+  if (!form) return;
+
+  const body = document.getElementById("games-body");
+  const nameInput = document.getElementById("game-name");
+  const dateInput = document.getElementById("game-date");
+  const platformsInput = document.getElementById("game-platforms");
+  const scoreInput = document.getElementById("game-score");
+  const status = document.getElementById("game-status");
+
+  const games = [
+    {
+      name: "Grand Theft Auto VI",
+      date: "2026-11-19",
+      platforms: "PS5, Xbox",
+      score: "",
+    },
+    {
+      name: "Warhammer 40,000: Dawn of War IV",
+      date: "2026-12-03",
+      platforms: "PC",
+      score: "",
+    },
+    {
+      name: "Professor Layton and the New World of Steam",
+      date: "2026-12-10",
+      platforms: "Switch, Switch 2",
+      score: "",
+    },
+    {
+      name: "Path of Exile 2",
+      date: "2026-12-11",
+      platforms: "PC, PS5, Xbox",
+      score: "",
+    },
+  ];
+
+  function renderGames() {
+    body.replaceChildren();
+
+    games.forEach((game, index) => {
+      const row = document.createElement("tr");
+
+      const values = [
+        game.name,
+        game.date,
+        game.platforms,
+        game.score === "" ? "TBA" : game.score,
+      ];
+
+      values.forEach((value, column) => {
+        const cell = document.createElement("td");
+        cell.textContent = value;
+
+        if (column === 3) {
+          cell.classList.add("score");
+        }
+
+        row.append(cell);
+      });
+
+      // Action buttons will be added in the next step.
+
+      body.append(row);
+    });
+
+    if (games.length === 0) {
+      const row = document.createElement("tr");
+      const cell = document.createElement("td");
+
+      cell.colSpan = body.closest("table").tHead.rows[0].cells.length;
+      cell.textContent = "No games yet. Add your first game above.";
+      cell.className = "text-center py-4";
+
+      row.append(cell);
+      body.append(row);
+    }
+  }
+
+  function readGame() {
+    return {
+      name: nameInput.value.trim(),
+      date: dateInput.value,
+      platforms: platformsInput.value.trim(),
+      score: scoreInput.value,
+    };
+  }
+
+  [nameInput, platformsInput].forEach((input) => {
+    input.addEventListener("input", () => input.setCustomValidity(""));
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    [nameInput, platformsInput].forEach((input) => {
+      input.setCustomValidity(
+        input.value.trim() === "" ? "Please fill out this field." : "",
+      );
+    });
+
+    if (!form.reportValidity()) return;
+
+    const game = readGame();
+
+    games.push(game);
+    form.reset();
+
+    renderGames();
+
+    status.className = "alert alert-success mt-3";
+    status.textContent = "Game added.";
+  });
+
+  renderGames();
 })();
