@@ -68,7 +68,7 @@
               A first look at the return to Vice City. Full details on the
               upcoming blockbuster, a trailer breakdown, and plot specifics.
             </p>
-            <a href="#" class="btn btn-custom mt-2">Read more</a>
+            <a href="#" class="btn btn-custom mt-2" data-article="gta6">Read more</a>
           </div>
         </section>
 
@@ -77,23 +77,23 @@
             <div class="sidebar-box">
               <h4 class="sidebar-title">Top 5 of the week</h4>
 
-              <a href="#" class="top-news-item">
+              <a href="#" class="top-news-item" data-article="top-1">
                 <span class="top-news-num">1</span>
                 <div>Half-Life 3 release in doubt again: rumors and facts</div>
               </a>
-              <a href="#" class="top-news-item">
+              <a href="#" class="top-news-item" data-article="top-2">
                 <span class="top-news-num">2</span>
                 <div>The Best Graphics Cards for 4K Gaming in 2026</div>
               </a>
-              <a href="#" class="top-news-item">
+              <a href="#" class="top-news-item" data-article="top-3">
                 <span class="top-news-num">3</span>
                 <div>Steam Deck 2 Review: Is It Worth Buying?</div>
               </a>
-              <a href="#" class="top-news-item">
+              <a href="#" class="top-news-item" data-article="top-4">
                 <span class="top-news-num">4</span>
                 <div>10 Hidden Details in the Elden Ring DLC Trailer</div>
               </a>
-              <a href="#" class="top-news-item">
+              <a href="#" class="top-news-item" data-article="top-5">
                 <span class="top-news-num">5</span>
                 <div>Results of sales at specialized stores</div>
               </a>
@@ -104,7 +104,7 @@
             <h3 class="mb-4 border-bottom border-danger pb-2">Latest news</h3>
             <div class="row row-cols-1 row-cols-md-2 g-4">
               <div class="col">
-                <div class="card card-news">
+                <div class="card card-news" data-article="news-1">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-wSGxIMgecoBRNcXYD48aDGC3YwvouFA7e6zlFJfZw&s=10"
                     class="card-img-top"
@@ -128,7 +128,7 @@
               </div>
 
               <div class="col">
-                <div class="card card-news">
+                <div class="card card-news" data-article="news-2">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQok91LBmXaAqzlPIsbfNcfSfN7IHaJunJDZy3Eef45Q&s=10"
                     class="card-img-top"
@@ -154,7 +154,7 @@
               </div>
 
               <div class="col">
-                <div class="card card-news">
+                <div class="card card-news" data-article="news-3">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgKANsH-aZWIAoT8mVjv_WTK6B2q6aRyut7ljLLBfxHg&s=10"
                     class="card-img-top"
@@ -178,7 +178,7 @@
               </div>
 
               <div class="col">
-                <div class="card card-news">
+                <div class="card card-news" data-article="news-4">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnxUC7ozhi1HKbXfn6hO-HUeQTagurWmi_0EJhr1BemA&s=10"
                     class="card-img-top"
@@ -225,7 +225,41 @@
         </p>
       </div>
     </footer>
+    <div
+      class="modal fade"
+      id="articleModal"
+      tabindex="-1"
+      aria-labelledby="articleModalTitle"
+      aria-hidden="true"
+      data-bs-theme="dark"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header border-secondary">
+            <h5 class="modal-title" id="articleModalTitle"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <img id="articleModalImg" class="img-fluid rounded mb-3 d-none" alt="" />
+            <div id="articleModalTags" class="mb-3"></div>
+            <div id="articleModalBody"></div>
+          </div>
+          <div class="modal-footer border-secondary">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="/js/script.js"></script>
   </body>
 </html>
