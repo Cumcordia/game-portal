@@ -25,32 +25,39 @@ The project was first built as a static midterm website and then extended for th
 ## Features Implemented
 
 **General**
+
 - **5 Responsive Pages:** Home (`index.html`), About (`about.html`), Releases (`releases.html`), Gallery (`gallery.html`) and Contact (`contact.html`).
 - **Responsive Design:** Bootstrap 5 grid + custom media queries for mobile and tablet screens.
 - **Layout:** Flexbox navigation/cards, CSS Grid screenshot gallery, absolutely positioned badges.
 - **Single CSS File:** External styles in `/css/style.css` using `:root` color variables.
 
 **Home (`index.html`)**
+
 - News feed with top stories and news cards.
 - Clicking a card opens a Bootstrap modal with the full article, tags and image, filled dynamically with jQuery.
 
 **About (`about.html`)**
+
 - Team profile cards.
 - Real-time search bar that filters cards as the user types (`.on("input")`), case-insensitive, by name, role, bio and tags.
 - Category filter buttons that work together with the search bar; results update instantly with jQuery `.fadeIn()` / `.fadeOut()` and a "no results" message.
 - Animated statistic counters (jQuery `.animate()`).
 
 **Releases (`releases.html`)**
-- Release schedule and review scores table with `:nth-child()` styling.
-- Table rendered dynamically from a JavaScript array, with a form for adding a new game (name, release date, platforms, score), input validation and a success message.
+
+- Full CRUD functionality: dynamically display games, add new   entries, edit existing records, cancel editing, and delete games with confirmation.
+- Required-field validation and score validation from 0 to 10.
+- Data is stored in memory and resets on page reload.
 
 **Gallery (`gallery.html`)**
+
 - Screenshot grid built with HTML, CSS Grid and Bootstrap.
 - jQuery lightbox that opens on click or Enter/Space, with previous/next arrows, close button, image counter and title.
 - Smooth `.fadeIn()`, `.fadeOut()` and `.animate()` transitions when opening, closing and switching images.
 - Keyboard (Esc, left/right arrows) and touch-swipe navigation.
 
 **Contact (`contact.html`)**
+
 - Feedback form with `:focus` states and validation styles.
 - Registration form with client-side validation: required-field checks for name, email, password and confirmation; email format check using a Regular Expression; password strength indicator (Weak / Medium / Strong); password confirmation match.
 - Real-time feedback while typing and on blur using Bootstrap `is-valid` / `is-invalid` states and error messages.
@@ -72,8 +79,8 @@ The project was first built as a static midterm website and then extended for th
 
 ## Member Contributions
 
-| Member         | Responsibilities                                                                                                                                                                                                                                         |
-| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Alikhan**    | Repository setup, base templates, shared navigation and footer, global `:root` CSS variables. `index.html` (news feed, jQuery article modals) and `gallery.html` (gallery grid, lightbox with arrows and fade/animate transitions).                        |
-| **Abilmansur** | `contact.html` (feedback form, registration form with RegEx email validation, password strength indicator, password confirmation, real-time feedback) and `releases.html` (table structure, `:nth-child()` styling, dynamic table with add-game form).     |
-| **Sergey**     | `about.html` (team profiles, CSS Grid layout, image positioning overlays, real-time search, category filters, animated counters) and project documentation (`README.md`).                                                                                 |
+| Member         | Responsibilities                                                                                                                                                                                                                                       |
+| :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Alikhan**    | Repository setup, base templates, shared navigation and footer, global `:root` CSS variables. `index.html` (news feed, jQuery article modals) and `gallery.html` (gallery grid, lightbox with arrows and fade/animate transitions).                    |
+| **Abilmansur** | `contact.html` (feedback form, registration form with RegEx email validation, password strength indicator, password confirmation, real-time feedback) and `releases.html` (table structure, `:nth-child()` styling, dynamic CRUD table with adding, editing, canceling edits, and deletion with confirmation ). |
+| **Sergey**     | `about.html` (team profiles, CSS Grid layout, image positioning overlays, real-time search, category filters, animated counters) and project documentation (`README.md`).                                                                              |
