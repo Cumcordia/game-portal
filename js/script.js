@@ -140,6 +140,11 @@
   const platformsInput = document.getElementById("game-platforms");
   const scoreInput = document.getElementById("game-score");
   const status = document.getElementById("game-status");
+  const formTitle = document.getElementById("game-form-title");
+  const submitButton = document.getElementById("game-submit");
+  const cancelButton = document.getElementById("game-cancel");
+
+  let editingIndex = null;
 
   const games = [
     {
@@ -192,7 +197,27 @@
         row.append(cell);
       });
 
-      // Action buttons will be added in the next step.
+      const actions = document.createElement("td");
+      const buttons = document.createElement("div");
+      buttons.className = "d-flex gap-2";
+
+      const editButton = document.createElement("button");
+      editButton.type = "button";
+      editButton.className = "btn btn-sm btn-outline-light";
+      editButton.textContent = "Edit";
+      editButton.setAttribute("aria-label", `Edit ${game.name}`);
+      editButton.addEventListener("click", () => startEditing(index));
+
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.className = "btn btn-sm btn-outline-danger";
+      deleteButton.textContent = "Delete";
+      deleteButton.setAttribute("aria-label", `Delete ${game.name}`);
+      deleteButton.addEventListener("click", () => deleteGame(index));
+
+      buttons.append(editButton, deleteButton);
+      actions.append(buttons);
+      row.append(actions);
 
       body.append(row);
     });
@@ -218,7 +243,65 @@
       score: scoreInput.value,
     };
   }
+  function resetEditor() {
+    editingIndex = null;
+    form.reset();
 
+    [nameInput, platformsInput].forEach((input) => {
+      input.setCustomValidity("");
+    });
+
+    formTitle.textContent = "Add a game";
+    submitButton.textContent = "Add game";
+    cancelButton.hidden = true;
+  }
+
+  function startEditing(index) {
+    const game = games[index];
+    resetEditor();
+
+    editingIndex = index;
+
+    nameInput.value = game.name;
+    dateInput.value = game.date;
+    platformsInput.value = game.platforms;
+    scoreInput.value = game.score;
+
+    formTitle.textContent = "Edit game";
+    submitButton.textContent = "Save changes";
+    cancelButton.hidden = false;
+
+    status.className = "mt-3";
+    status.textContent = "";
+
+    form.scrollIntoView({ block: "center" });
+    nameInput.focus({ preventScroll: true });
+  }
+
+  function deleteGame(index) {
+    const game = games[index];
+
+    if (!window.confirm(`Delete "${game.name}"?`)) return;
+
+    games.splice(index, 1);
+
+    if (editingIndex === index) {
+      resetEditor();
+    } else if (editingIndex !== null && index < editingIndex) {
+      editingIndex -= 1;
+    }
+
+    renderGames();
+
+    status.className = "alert alert-success mt-3";
+    status.textContent = "Game deleted.";
+  }
+
+  cancelButton.addEventListener("click", () => {
+    resetEditor();
+    status.className = "mt-3";
+    status.textContent = "";
+  });
   [nameInput, platformsInput].forEach((input) => {
     input.addEventListener("input", () => input.setCustomValidity(""));
   });
@@ -235,14 +318,19 @@
     if (!form.reportValidity()) return;
 
     const game = readGame();
+    const isEditing = editingIndex !== null;
 
-    games.push(game);
-    form.reset();
+    if (isEditing) {
+      games[editingIndex] = game;
+    } else {
+      games.push(game);
+    }
 
+    resetEditor();
     renderGames();
 
     status.className = "alert alert-success mt-3";
-    status.textContent = "Game added.";
+    status.textContent = isEditing ? "Game updated." : "Game added.";
   });
 
   renderGames();
@@ -255,89 +343,89 @@ $(function () {
   const $modalEl = $("#articleModal");
   if ($modalEl.length === 0) return;
 
-    const articles = {
-      gta6: {
-        title: "Grand Theft Auto VI",
-        tags: ["Main Announcement", "PS5", "Xbox"],
-        paragraphs: [
-          "The long-awaited return to Vice City is almost here. The first trailer shows a sun-soaked, neon-lit map that feels bigger and more alive than anything the series has done before.",
-          "Fans have already broken down the footage frame by frame: dynamic crowds, a reworked driving model and a story that follows a pair of criminals on the run.",
-          "The release is scheduled for 19 November 2026 on PS5 and Xbox. A PC version has not been announced yet.",
-        ],
-      },
-      "top-1": {
-        title: "Half-Life 3 release in doubt again: rumors and facts",
-        tags: ["Top 5 of the week", "PC"],
-        paragraphs: [
-          "Another wave of leaks has revived talk about Half-Life 3, but there is still no official confirmation from Valve.",
-          "We separate what is known from what is pure speculation: job listings, datamined files and community theories.",
-        ],
-      },
-      "top-2": {
-        title: "The Best Graphics Cards for 4K Gaming in 2026",
-        tags: ["Top 5 of the week", "Hardware"],
-        paragraphs: [
-          "Playing at 4K with high settings still demands a powerful GPU. We compared the current lineup by performance, power draw and price.",
-          "Our pick depends on your budget: a high-end card for maximum settings and ray tracing, or a mid-range model with upscaling for a smooth 60 FPS.",
-        ],
-      },
-      "top-3": {
-        title: "Steam Deck 2 Review: Is It Worth Buying?",
-        tags: ["Top 5 of the week", "Handheld"],
-        paragraphs: [
-          "The new handheld brings a faster chip, a better screen and longer battery life. But is the upgrade worth it for owners of the first model?",
-          "In this review we look at performance in demanding games, build quality, heat and noise, and who should wait for a discount.",
-        ],
-      },
-      "top-4": {
-        title: "10 Hidden Details in the Elden Ring DLC Trailer",
-        tags: ["Top 5 of the week", "PC", "PS5", "Xbox"],
-        paragraphs: [
-          "The trailer is packed with references: familiar armor sets, a mysterious silhouette in the background and new enemy designs.",
-          "We went through it shot by shot and collected ten details that hint at the story and the new region.",
-        ],
-      },
-      "top-5": {
-        title: "Results of sales at specialized stores",
-        tags: ["Top 5 of the week", "Sales"],
-        paragraphs: [
-          "Seasonal sales ended with record numbers for several digital stores. Indie hits and older AAA games performed best.",
-          "Here is a short summary of the best-selling titles and the biggest discounts of the week.",
-        ],
-      },
-      "news-1": {
-        title: "The Witcher 4 Update",
-        tags: ["PC", "PS5"],
-        paragraphs: [
-          "The developers have shared new details about the Unreal Engine 5 game engine that powers the next chapter of the saga.",
-          "According to the team, the new technology allows for denser cities, more detailed characters and seamless transitions between locations.",
-        ],
-      },
-      "news-2": {
-        title: "S.T.A.L.K.E.R. 2 Update",
-        tags: ["Xbox", "PC"],
-        paragraphs: [
-          "A major patch has been released, fixing optimization issues and improving AI behavior in the Zone.",
-          "Players should notice more stable frame rates, fewer crashes and smarter enemy tactics during firefights.",
-        ],
-      },
-      "news-3": {
-        title: "Announcement of a new exclusive",
-        tags: ["PS5"],
-        paragraphs: [
-          "Naughty Dog has unveiled a new sci-fi project. The teaser shows a lone traveler on an abandoned station.",
-          "The studio promises a story-driven adventure, but the release window and gameplay details are still under wraps.",
-        ],
-      },
-      "news-4": {
-        title: "Cyberpunk 2077 Sequel",
-        tags: ["PC", "PS5", "Xbox"],
-        paragraphs: [
-          "Project Orion enters the active development stage in Boston, with a growing team working on the next Night City story.",
-          "The studio says it wants to build on the lessons of the first game and deliver a more polished launch.",
-        ],
-      },
-    };
+  const articles = {
+    gta6: {
+      title: "Grand Theft Auto VI",
+      tags: ["Main Announcement", "PS5", "Xbox"],
+      paragraphs: [
+        "The long-awaited return to Vice City is almost here. The first trailer shows a sun-soaked, neon-lit map that feels bigger and more alive than anything the series has done before.",
+        "Fans have already broken down the footage frame by frame: dynamic crowds, a reworked driving model and a story that follows a pair of criminals on the run.",
+        "The release is scheduled for 19 November 2026 on PS5 and Xbox. A PC version has not been announced yet.",
+      ],
+    },
+    "top-1": {
+      title: "Half-Life 3 release in doubt again: rumors and facts",
+      tags: ["Top 5 of the week", "PC"],
+      paragraphs: [
+        "Another wave of leaks has revived talk about Half-Life 3, but there is still no official confirmation from Valve.",
+        "We separate what is known from what is pure speculation: job listings, datamined files and community theories.",
+      ],
+    },
+    "top-2": {
+      title: "The Best Graphics Cards for 4K Gaming in 2026",
+      tags: ["Top 5 of the week", "Hardware"],
+      paragraphs: [
+        "Playing at 4K with high settings still demands a powerful GPU. We compared the current lineup by performance, power draw and price.",
+        "Our pick depends on your budget: a high-end card for maximum settings and ray tracing, or a mid-range model with upscaling for a smooth 60 FPS.",
+      ],
+    },
+    "top-3": {
+      title: "Steam Deck 2 Review: Is It Worth Buying?",
+      tags: ["Top 5 of the week", "Handheld"],
+      paragraphs: [
+        "The new handheld brings a faster chip, a better screen and longer battery life. But is the upgrade worth it for owners of the first model?",
+        "In this review we look at performance in demanding games, build quality, heat and noise, and who should wait for a discount.",
+      ],
+    },
+    "top-4": {
+      title: "10 Hidden Details in the Elden Ring DLC Trailer",
+      tags: ["Top 5 of the week", "PC", "PS5", "Xbox"],
+      paragraphs: [
+        "The trailer is packed with references: familiar armor sets, a mysterious silhouette in the background and new enemy designs.",
+        "We went through it shot by shot and collected ten details that hint at the story and the new region.",
+      ],
+    },
+    "top-5": {
+      title: "Results of sales at specialized stores",
+      tags: ["Top 5 of the week", "Sales"],
+      paragraphs: [
+        "Seasonal sales ended with record numbers for several digital stores. Indie hits and older AAA games performed best.",
+        "Here is a short summary of the best-selling titles and the biggest discounts of the week.",
+      ],
+    },
+    "news-1": {
+      title: "The Witcher 4 Update",
+      tags: ["PC", "PS5"],
+      paragraphs: [
+        "The developers have shared new details about the Unreal Engine 5 game engine that powers the next chapter of the saga.",
+        "According to the team, the new technology allows for denser cities, more detailed characters and seamless transitions between locations.",
+      ],
+    },
+    "news-2": {
+      title: "S.T.A.L.K.E.R. 2 Update",
+      tags: ["Xbox", "PC"],
+      paragraphs: [
+        "A major patch has been released, fixing optimization issues and improving AI behavior in the Zone.",
+        "Players should notice more stable frame rates, fewer crashes and smarter enemy tactics during firefights.",
+      ],
+    },
+    "news-3": {
+      title: "Announcement of a new exclusive",
+      tags: ["PS5"],
+      paragraphs: [
+        "Naughty Dog has unveiled a new sci-fi project. The teaser shows a lone traveler on an abandoned station.",
+        "The studio promises a story-driven adventure, but the release window and gameplay details are still under wraps.",
+      ],
+    },
+    "news-4": {
+      title: "Cyberpunk 2077 Sequel",
+      tags: ["PC", "PS5", "Xbox"],
+      paragraphs: [
+        "Project Orion enters the active development stage in Boston, with a growing team working on the next Night City story.",
+        "The studio says it wants to build on the lessons of the first game and deliver a more polished launch.",
+      ],
+    },
+  };
 
   const modal = bootstrap.Modal.getOrCreateInstance($modalEl[0]);
   const $title = $("#articleModalTitle");
@@ -361,7 +449,9 @@ $(function () {
 
     $tags.empty();
     article.tags.forEach(function (tag) {
-      $("<span>", { class: "badge badge-platform me-1", text: tag }).appendTo($tags);
+      $("<span>", { class: "badge badge-platform me-1", text: tag }).appendTo(
+        $tags,
+      );
     });
 
     $body.empty();
