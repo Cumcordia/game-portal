@@ -1,6 +1,6 @@
 # GamePortal - Gaming News and Reviews
 
-Midterm web development project: a responsive 5-page website covering gaming news, upcoming releases, reviews, screenshots, and user feedback.
+Responsive 5-page website about gaming news, upcoming releases, reviews, screenshots and user feedback. Built with HTML5, CSS3 and Bootstrap 5.3 and extended with JavaScript and jQuery for interactivity and dynamic behavior.
 
 **Live Website:** https://cumcordia.github.io/game-portal/
 
@@ -16,18 +16,45 @@ Midterm web development project: a responsive 5-page website covering gaming new
 
 ## Project Overview
 
-GamePortal is a 5-page website built with semantic HTML5, CSS3, and Bootstrap 5.3. The site includes a home feed with top stories, a release calendar with a comparison table, an about page with team profiles, a screenshot gallery, and a functional contact form.
+GamePortal is a 5-page website built with semantic HTML5, CSS3 and Bootstrap 5.3. The site includes a home feed with top stories, a release calendar with a game table, an about page with team profiles, a screenshot gallery and a feedback/registration page.
+
+The project was first built as a static midterm website and then extended for the endterm with client-side form validation, real-time search and filtering, a dynamic releases table, article pop-ups and an image gallery with a lightbox. The same topic, structure and repository are used throughout, and all HTML, CSS and responsiveness requirements remain intact. All JavaScript lives in `/js/script.js`.
 
 ---
 
 ## Features Implemented
 
-- **5 Responsive Pages:** Home (`index.html`), News/About (`about.html`), Releases (`releases.html`), Gallery (`gallery.html`), and Contact (`contact.html`).
-- **Interactive Table:** Game release schedule and review scores table with `:nth-child()` styling (`releases.html`).
-- **Contact Form:** Interactive feedback form with `:focus` states and input validation styles (`contact.html`).
-- **CSS Grid and Flexbox:** Flexbox navigation/cards, CSS Grid screenshot gallery, and absolute positioning badges.
+**General**
+- **5 Responsive Pages:** Home (`index.html`), About (`about.html`), Releases (`releases.html`), Gallery (`gallery.html`) and Contact (`contact.html`).
 - **Responsive Design:** Bootstrap 5 grid + custom media queries for mobile and tablet screens.
+- **Layout:** Flexbox navigation/cards, CSS Grid screenshot gallery, absolutely positioned badges.
 - **Single CSS File:** External styles in `/css/style.css` using `:root` color variables.
+
+**Home (`index.html`)**
+- News feed with top stories and news cards.
+- Clicking a card opens a Bootstrap modal with the full article, tags and image, filled dynamically with jQuery.
+
+**About (`about.html`)**
+- Team profile cards.
+- Real-time search bar that filters cards as the user types (`.on("input")`), case-insensitive, by name, role, bio and tags.
+- Category filter buttons that work together with the search bar; results update instantly with jQuery `.fadeIn()` / `.fadeOut()` and a "no results" message.
+- Animated statistic counters (jQuery `.animate()`).
+
+**Releases (`releases.html`)**
+- Release schedule and review scores table with `:nth-child()` styling.
+- Table rendered dynamically from a JavaScript array, with a form for adding a new game (name, release date, platforms, score), input validation and a success message.
+
+**Gallery (`gallery.html`)**
+- Screenshot grid built with HTML, CSS Grid and Bootstrap.
+- jQuery lightbox that opens on click or Enter/Space, with previous/next arrows, close button, image counter and title.
+- Smooth `.fadeIn()`, `.fadeOut()` and `.animate()` transitions when opening, closing and switching images.
+- Keyboard (Esc, left/right arrows) and touch-swipe navigation.
+
+**Contact (`contact.html`)**
+- Feedback form with `:focus` states and validation styles.
+- Registration form with client-side validation: required-field checks for name, email, password and confirmation; email format check using a Regular Expression; password strength indicator (Weak / Medium / Strong); password confirmation match.
+- Real-time feedback while typing and on blur using Bootstrap `is-valid` / `is-invalid` states and error messages.
+- Submission is blocked if validation fails; a Bootstrap alert explains what to fix and focus moves to the first invalid field.
 
 ---
 
@@ -36,14 +63,17 @@ GamePortal is a 5-page website built with semantic HTML5, CSS3, and Bootstrap 5.
 - HTML5
 - CSS3
 - Bootstrap 5.3
+- JavaScript (ES6)
+- jQuery
+- Regular Expressions (RegEx)
 - Git and GitHub Pages
 
 ---
 
 ## Member Contributions
 
-| Member         | Responsibilities                                                                                                                           |
-| :------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
-| **Alikhan**    | Repository setup, base HTML templates, shared navigation and footer, `index.html`, `gallery.html` structure, global `:root` CSS variables. |
-| **Abilmansur** | `releases.html`, `contact.html` implementation, HTML table structure and `:nth-child()` CSS styling, news card components.                 |
-| **Sergey**     | `about.html`, CSS Grid layout, image positioning overlays, and project documentation (`README.md`).                                        |
+| Member         | Responsibilities                                                                                                                                                                                                                                         |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Alikhan**    | Repository setup, base templates, shared navigation and footer, global `:root` CSS variables. `index.html` (news feed, jQuery article modals) and `gallery.html` (gallery grid, lightbox with arrows and fade/animate transitions).                        |
+| **Abilmansur** | `contact.html` (feedback form, registration form with RegEx email validation, password strength indicator, password confirmation, real-time feedback) and `releases.html` (table structure, `:nth-child()` styling, dynamic table with add-game form).     |
+| **Sergey**     | `about.html` (team profiles, CSS Grid layout, image positioning overlays, real-time search, category filters, animated counters) and project documentation (`README.md`).                                                                                 |
