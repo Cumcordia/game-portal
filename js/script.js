@@ -108,8 +108,14 @@
     const results = fields.map((field) => validate(field));
 
     if (!results.every(Boolean)) {
-      status.className = "alert alert-danger mt-3";
-      status.textContent = "Please correct the highlighted fields.";
+      if (!Auth.signIn(name.value)) {
+        status.className = "alert alert-danger mt-3";
+        status.textContent = "Failed to save sign-in.";
+        return;
+      }
+
+      status.className = "alert alert-success mt-3";
+      status.textContent = "You are signed in!";
       fields.find((field, index) => !results[index]).focus();
       return;
     }
