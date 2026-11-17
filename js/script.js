@@ -607,12 +607,14 @@ $(function () {
     });
 });
 
-(() => {
-  const grid = document.getElementById("news-grid");
-  if (!grid) return;
+// Home page: Games News feed (GNews API, jQuery)
+$(function () {
+  const $grid = $("#news-grid");
+  if ($grid.length === 0) return;
 
   const API_KEY = "API-KEY-HERE";
-  const ENDPOINT = "https://gnews.io/api/v4/search";
+  const PROXY_URL = "https://game-portal.olegsmirnov24452.workers.dev/";
+  const ENDPOINT = PROXY_URL || "https://gnews.io/api/v4/search";
   const FALLBACK_URL = "data/news-fallback.json";
   const PAGE_SIZE = 10;
   const CACHE_TTL = 10 * 60 * 1000;
@@ -637,151 +639,105 @@ $(function () {
       '"game developer" OR "game studio" OR "game release" OR "video game industry"',
   };
 
-  const searchForm = document.getElementById("news-search-form");
-  const searchInput = document.getElementById("news-search");
-  const filtersBox = document.getElementById("news-filters");
-  const refreshBtn = document.getElementById("news-refresh");
-  const statusEl = document.getElementById("news-status");
-  const errorBox = document.getElementById("news-error");
-  const errorText = document.getElementById("news-error-text");
-  const retryBtn = document.getElementById("news-retry");
-  const emptyBox = document.getElementById("news-empty");
-  const topList = document.getElementById("top-news-list");
+  const $searchForm = $("#news-search-form");
+  const $searchInput = $("#news-search");
+  const $filters = $("#news-filters");
+  const $refreshBtn = $("#news-refresh");
+  const $status = $("#news-status");
+  const $errorBox = $("#news-error");
+  const $errorText = $("#news-error-text");
+  const $retryBtn = $("#news-retry");
+  const $emptyBox = $("#news-empty");
+  const $topList = $("#top-news-list");
 
-  const modalEl = document.getElementById("articleModal");
-  const modalTitle = document.getElementById("articleModalTitle");
-  const modalImg = document.getElementById("articleModalImg");
-  const modalTags = document.getElementById("articleModalTags");
-  const modalBody = document.getElementById("articleModalBody");
+  const $modalEl = $("#articleModal");
+  const $modalTitle = $("#articleModalTitle");
+  const $modalImg = $("#articleModalImg");
+  const $modalTags = $("#articleModalTags");
+  const $modalBody = $("#articleModalBody");
 
   const state = { topic: "all", query: "" };
-  let controller = null;
+  let newsXhr = null;
+  let newsToken = 0;
+  let topXhr = null;
+  let topToken = 0;
   let searchTimer = null;
-
-  class ApiError extends Error {
-    constructor(status) {
-      super(`HTTP ${status}`);
-      this.status = status;
-    }
-  }
-
-  function toggle(element, show) {
-    element.classList.toggle("d-none", !show);
-  }
 
   function buildQuery() {
     const topic = TOPICS[state.topic];
     if (!state.query) return topic;
     const safe = state.query.replace(/["()]/g, " ").trim().slice(0, 50);
-    return `"${safe}" AND (${topic})`;
+    return '"' + safe + '" AND (' + topic + ")";
   }
 
-  function readCache(q) {
+  function readCache(key) {
     try {
-      const raw = sessionStorage.getItem(`gnews:${q}`);
+      const raw = sessionStorage.getItem("gnews:" + key);
       if (!raw) return null;
-      const { t, data } = JSON.parse(raw);
-      return Date.now() - t < CACHE_TTL ? data : null;
-    } catch {
+      const entry = JSON.parse(raw);
+      return Date.now() - entry.t < CACHE_TTL ? entry.data : null;
+    } catch (e) {
       return null;
     }
   }
 
-  function writeCache(q, data) {
+  function writeCache(key, data) {
     try {
       sessionStorage.setItem(
-        `gnews:${q}`,
-        JSON.stringify({ t: Date.now(), data }),
+        "gnews:" + key,
+        JSON.stringify({ t: Date.now(), data: data }),
       );
-    } catch {}
+    } catch (e) {}
   }
 
-  async function requestNews(params, cacheKey, { signal, force }) {
-    let data = force ? null : readCache(cacheKey);
-    if (data) return data;
-
-    const qs = new URLSearchParams({ lang: "en", apikey: API_KEY, ...params });
-    const res = await fetch(`${ENDPOINT}?${qs}`, { signal });
-    if (!res.ok) throw new ApiError(res.status);
-
-    data = await res.json();
-    writeCache(cacheKey, data);
-    return data;
-  }
-
-  function errorMessage(err) {
-    if (err.status === 400) return "The news API rejected the request.";
-    if (err.status === 401 || err.status === 403)
+  function errorMessage(status) {
+    if (status === 400) return "The news API rejected the request.";
+    if (status === 401 || status === 403)
       return "The API refused the request: invalid key, daily limit reached, or this domain is not allowed.";
-    if (err.status === 429)
-      return "Too many requests. Wait a moment and try again.";
-    if (err.status >= 500)
-      return "The news service is temporarily unavailable.";
+    if (status === 429) return "Too many requests. Wait a moment and try again.";
+    if (status >= 500) return "The news service is temporarily unavailable.";
     return "Could not reach the news service. Check your connection.";
   }
 
-  function showLoading() {
-    toggle(errorBox, false);
-    toggle(emptyBox, false);
-    refreshBtn.disabled = true;
-    grid.setAttribute("aria-busy", "true");
-    statusEl.textContent = "Loading news…";
-    grid.innerHTML = Array.from(
-      { length: 4 },
-      () => `
-        <div class="col">
-          <div class="card card-news" aria-hidden="true">
-            <div class="news-skeleton-img"></div>
-            <div class="card-body placeholder-glow">
-              <span class="placeholder col-4 mb-2"></span>
-              <span class="placeholder col-10 mb-2"></span>
-              <span class="placeholder col-8"></span>
-            </div>
-          </div>
-        </div>`,
-    ).join("");
+  function requestNews(params, cacheKey, force) {
+    const cached = force ? null : readCache(cacheKey);
+    if (cached) return $.Deferred().resolve(cached).promise();
+
+    const xhr = $.ajax({
+      url: ENDPOINT,
+      method: "GET",
+      dataType: "json",
+      data: $.extend(
+        PROXY_URL ? { lang: "en" } : { lang: "en", apikey: API_KEY },
+        params,
+      ),
+    });
+    xhr.done(function (data) {
+      writeCache(cacheKey, data);
+    });
+    return xhr;
   }
 
-  function finishLoading() {
-    refreshBtn.disabled = false;
-    grid.removeAttribute("aria-busy");
-  }
-
-  function showError(message) {
-    finishLoading();
-    grid.replaceChildren();
-    toggle(emptyBox, false);
-    errorText.textContent = message;
-    toggle(errorBox, true);
-    statusEl.textContent = "";
-  }
-
-  function showEmpty() {
-    finishLoading();
-    grid.replaceChildren();
-    toggle(errorBox, false);
-    toggle(emptyBox, true);
-    statusEl.textContent = "0 articles found.";
-  }
-
-  function showArticles(articles, note) {
-    finishLoading();
-    toggle(errorBox, false);
-
-    const list = articles.filter((a) => a && a.title);
-    if (list.length === 0) {
-      showEmpty();
-      return;
-    }
-
-    toggle(emptyBox, false);
-    grid.replaceChildren(...list.map(createCard));
-    statusEl.textContent = note || `${list.length} articles`;
+  function loadFallback(query) {
+    return $.getJSON(FALLBACK_URL).then(
+      function (data) {
+        const q = (query || "").toLowerCase();
+        return $.grep(data.articles || [], function (a) {
+          return (
+            !q ||
+            (a.title + " " + (a.description || "")).toLowerCase().indexOf(q) !== -1
+          );
+        });
+      },
+      function () {
+        return null;
+      },
+    );
   }
 
   function formatDate(iso) {
     const date = new Date(iso);
-    if (Number.isNaN(date.getTime())) return "";
+    if (isNaN(date.getTime())) return "";
     return date.toLocaleDateString("en-GB", {
       day: "numeric",
       month: "short",
@@ -789,290 +745,325 @@ $(function () {
     });
   }
 
+  function showLoading() {
+    $errorBox.addClass("d-none");
+    $emptyBox.addClass("d-none");
+    $refreshBtn.prop("disabled", true);
+    $grid.attr("aria-busy", "true");
+    $status.text("Loading news…");
+
+    $grid.empty();
+    for (let i = 0; i < 4; i++) {
+      $grid.append(
+        '<div class="col"><div class="card card-news" aria-hidden="true">' +
+          '<div class="news-skeleton-img"></div>' +
+          '<div class="card-body placeholder-glow">' +
+          '<span class="placeholder col-4 mb-2"></span>' +
+          '<span class="placeholder col-10 mb-2"></span>' +
+          '<span class="placeholder col-8"></span>' +
+          "</div></div></div>",
+      );
+    }
+  }
+
+  function finishLoading() {
+    $refreshBtn.prop("disabled", false);
+    $grid.removeAttr("aria-busy");
+  }
+
+  function showError(message) {
+    finishLoading();
+    $grid.empty();
+    $emptyBox.addClass("d-none");
+    $errorText.text(message);
+    $errorBox.removeClass("d-none");
+    $status.text("");
+  }
+
+  function showEmpty() {
+    finishLoading();
+    $grid.empty();
+    $errorBox.addClass("d-none");
+    $emptyBox.removeClass("d-none");
+    $status.text("0 articles found.");
+  }
+
+  function showArticles(articles, note) {
+    finishLoading();
+    $errorBox.addClass("d-none");
+
+    const list = $.grep(articles, function (a) {
+      return a && a.title;
+    });
+    if (list.length === 0) {
+      showEmpty();
+      return;
+    }
+
+    $emptyBox.addClass("d-none");
+    $grid.empty();
+    $.each(list, function (i, article) {
+      $grid.append(createCard(article));
+    });
+    $status.text(note || list.length + " articles");
+  }
+
   function createCard(article) {
-    const col = document.createElement("div");
-    col.className = "col";
-
-    const card = document.createElement("article");
-    card.className = "card card-news news-card";
-
-    const img = document.createElement("img");
-    img.className = "card-img-top";
-    img.alt = "";
-    img.loading = "lazy";
-    img.referrerPolicy = "no-referrer";
-    img.src = article.image || PLACEHOLDER_IMG;
-    img.addEventListener("error", () => {
-      img.src = PLACEHOLDER_IMG;
+    const $img = $("<img>", {
+      class: "card-img-top",
+      alt: "",
+      loading: "lazy",
+      referrerpolicy: "no-referrer",
+      src: article.image || PLACEHOLDER_IMG,
+    }).on("error", function () {
+      $(this).off("error").attr("src", PLACEHOLDER_IMG);
     });
 
-    const body = document.createElement("div");
-    body.className = "card-body d-flex flex-column";
+    const $meta = $("<div>", {
+      class: "mb-2 d-flex flex-wrap align-items-center gap-2",
+    }).append(
+      $("<span>", {
+        class: "badge badge-platform",
+        text: (article.source && article.source.name) || "News",
+      }),
+      $("<small>", {
+        class: "text-secondary",
+        text: formatDate(article.publishedAt),
+      }),
+    );
 
-    const meta = document.createElement("div");
-    meta.className = "mb-2 d-flex flex-wrap align-items-center gap-2";
+    const $body = $("<div>", { class: "card-body d-flex flex-column" }).append(
+      $meta,
+      $("<h5>", { class: "card-title text-white", text: article.title }),
+      $("<p>", {
+        class: "card-text text-secondary flex-grow-1",
+        text: article.description || "",
+      }),
+      $("<button>", {
+        type: "button",
+        class:
+          "btn btn-link text-danger fw-bold text-decoration-none p-0 align-self-start",
+        text: "Read more →",
+      }),
+    );
 
-    const source = document.createElement("span");
-    source.className = "badge badge-platform";
-    source.textContent = article.source?.name || "News";
+    const $card = $("<article>", { class: "card card-news news-card" })
+      .append($img, $body)
+      .on("click", function () {
+        openArticle(article);
+      });
 
-    const date = document.createElement("small");
-    date.className = "text-secondary";
-    date.textContent = formatDate(article.publishedAt);
-
-    meta.append(source, date);
-
-    const title = document.createElement("h5");
-    title.className = "card-title text-white";
-    title.textContent = article.title;
-
-    const text = document.createElement("p");
-    text.className = "card-text text-secondary flex-grow-1";
-    text.textContent = article.description || "";
-
-    const more = document.createElement("button");
-    more.type = "button";
-    more.className =
-      "btn btn-link text-danger fw-bold text-decoration-none p-0 align-self-start";
-    more.textContent = "Read more →";
-
-    body.append(meta, title, text, more);
-    card.append(img, body);
-    card.addEventListener("click", () => openArticle(article));
-    col.append(card);
-    return col;
+    return $("<div>", { class: "col" }).append($card);
   }
 
   function openArticle(article) {
-    modalTitle.textContent = article.title;
+    $modalTitle.text(article.title);
 
     if (article.image) {
-      modalImg.src = article.image;
-      modalImg.alt = article.title;
-      modalImg.classList.remove("d-none");
+      $modalImg
+        .attr({ src: article.image, alt: article.title })
+        .removeClass("d-none");
     } else {
-      modalImg.removeAttribute("src");
-      modalImg.classList.add("d-none");
+      $modalImg.removeAttr("src").addClass("d-none");
     }
 
-    modalTags.replaceChildren();
-    const source = document.createElement("span");
-    source.className = "badge badge-platform me-2";
-    source.textContent = article.source?.name || "News";
-    const date = document.createElement("small");
-    date.className = "text-secondary";
-    date.textContent = formatDate(article.publishedAt);
-    modalTags.append(source, date);
+    $modalTags
+      .empty()
+      .append(
+        $("<span>", {
+          class: "badge badge-platform me-2",
+          text: (article.source && article.source.name) || "News",
+        }),
+        $("<small>", {
+          class: "text-secondary",
+          text: formatDate(article.publishedAt),
+        }),
+      );
 
-    modalBody.replaceChildren();
-    const p = document.createElement("p");
-    p.textContent = article.description || "No description available.";
-    modalBody.append(p);
+    $modalBody
+      .empty()
+      .append(
+        $("<p>").text(article.description || "No description available."),
+      );
 
     if (/^https?:\/\//i.test(article.url || "")) {
-      const link = document.createElement("a");
-      link.className = "btn btn-custom";
-      link.href = article.url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Read the full article";
-      modalBody.append(link);
-    }
-
-    bootstrap.Modal.getOrCreateInstance(modalEl).show();
-  }
-
-  async function loadFallback(signal, query = state.query) {
-    try {
-      const res = await fetch(FALLBACK_URL, { signal });
-      if (!res.ok) return null;
-      const data = await res.json();
-      const q = query.toLowerCase();
-      return (data.articles || []).filter(
-        (a) =>
-          !q || `${a.title} ${a.description || ""}`.toLowerCase().includes(q),
+      $modalBody.append(
+        $("<a>", {
+          class: "btn btn-custom",
+          href: article.url,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          text: "Read the full article",
+        }),
       );
-    } catch {
-      return null;
     }
+
+    bootstrap.Modal.getOrCreateInstance($modalEl[0]).show();
   }
 
-  async function loadNews({ force = false } = {}) {
-    if (API_KEY.startsWith("PASTE")) {
+  function loadNews(force) {
+    if (!PROXY_URL && API_KEY === "API-KEY-HERE") {
       showError("Add your GNews API key to API_KEY in js/script.js.");
       return;
     }
 
     const q = buildQuery();
-    if (controller) controller.abort();
-    controller = new AbortController();
-    const { signal } = controller;
+    const token = ++newsToken;
+    if (newsXhr && newsXhr.abort) newsXhr.abort();
 
     showLoading();
 
-    try {
-      const data = await requestNews({ q, max: String(PAGE_SIZE) }, q, {
-        signal,
-        force,
+    newsXhr = requestNews({ q: q, max: PAGE_SIZE }, q, force);
+    newsXhr
+      .done(function (data) {
+        if (token !== newsToken) return;
+        showArticles(data.articles || []);
+      })
+      .fail(function (xhr) {
+        if (token !== newsToken) return;
+
+        loadFallback(state.query).done(function (saved) {
+          if (token !== newsToken) return;
+          if (saved) {
+            showArticles(
+              saved,
+              "Live news is unavailable. Showing saved articles.",
+            );
+          } else {
+            showError(errorMessage(xhr.status));
+          }
+        });
       });
-      showArticles(data.articles || []);
-    } catch (err) {
-      if (signal.aborted) return;
-
-      const saved = await loadFallback(signal);
-      if (signal.aborted) return;
-
-      if (saved) {
-        showArticles(
-          saved,
-          "Live news is unavailable. Showing saved articles.",
-        );
-      } else {
-        showError(errorMessage(err));
-      }
-    }
   }
 
-  let topController = null;
-
-  function showTopMessage(text, withRetry = false) {
-    const p = document.createElement("p");
-    p.className = "small text-secondary mb-0";
-    p.textContent = text;
-    topList.replaceChildren(p);
+  function showTopMessage(text, withRetry) {
+    $topList.removeAttr("aria-busy").empty();
+    $topList.append($("<p>", { class: "small text-secondary mb-0", text: text }));
 
     if (withRetry) {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn btn-sm btn-outline-secondary mt-2";
-      btn.textContent = "Try again";
-      btn.addEventListener("click", () => loadTop({ force: true }));
-      topList.append(btn);
+      $topList.append(
+        $("<button>", {
+          type: "button",
+          class: "btn btn-sm btn-outline-light mt-2",
+          text: "Try again",
+        }).on("click", function () {
+          loadTop(true);
+        }),
+      );
     }
   }
 
   function showTopLoading() {
-    topList.setAttribute("aria-busy", "true");
-    topList.innerHTML = Array.from(
-      { length: 5 },
-      () =>
+    $topList.attr("aria-busy", "true").empty();
+    for (let i = 0; i < 5; i++) {
+      $topList.append(
         '<div class="placeholder-glow mb-3" aria-hidden="true">' +
-        '<span class="placeholder col-12"></span>' +
-        '<span class="placeholder col-8"></span></div>',
-    ).join("");
+          '<span class="placeholder col-12"></span>' +
+          '<span class="placeholder col-8"></span></div>',
+      );
+    }
   }
 
   function renderTop(articles) {
-    topList.removeAttribute("aria-busy");
-
-    const seen = new Set();
-    const items = articles
-      .filter((a) => a && a.title && !seen.has(a.title) && seen.add(a.title))
-      .slice(0, 5);
+    const seen = {};
+    const items = $.grep(articles, function (a) {
+      if (!a || !a.title || seen[a.title]) return false;
+      seen[a.title] = true;
+      return true;
+    }).slice(0, 5);
 
     if (items.length === 0) {
-      showTopMessage("No top stories this week.");
+      showTopMessage("No top stories this week.", false);
       return;
     }
 
-    topList.replaceChildren(
-      ...items.map((article, index) => {
-        const link = document.createElement("a");
-        link.href = "#";
-        link.className = "top-news-item";
-
-        const num = document.createElement("span");
-        num.className = "top-news-num";
-        num.textContent = String(index + 1);
-
-        const title = document.createElement("div");
-        title.textContent = article.title;
-
-        link.append(num, title);
-        link.addEventListener("click", (event) => {
-          event.preventDefault();
+    $topList.removeAttr("aria-busy").empty();
+    $.each(items, function (index, article) {
+      $("<a>", { href: "#", class: "top-news-item" })
+        .append(
+          $("<span>", { class: "top-news-num", text: index + 1 }),
+          $("<div>").text(article.title),
+        )
+        .on("click", function (e) {
+          e.preventDefault();
           openArticle(article);
-        });
-        return link;
-      }),
-    );
+        })
+        .appendTo($topList);
+    });
   }
 
-  async function loadTop({ force = false } = {}) {
-    if (API_KEY.startsWith("PASTE")) {
-      showTopMessage("Add your GNews API key to load top stories.");
+  function loadTop(force) {
+    if (!PROXY_URL && API_KEY === "API-KEY-HERE") {
+      showTopMessage("Add your GNews API key to load top stories.", false);
       return;
     }
 
-    if (topController) topController.abort();
-    topController = new AbortController();
-    const { signal } = topController;
+    const token = ++topToken;
+    if (topXhr && topXhr.abort) topXhr.abort();
 
     showTopLoading();
 
-    try {
-      const from = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .replace(/\.\d{3}Z$/, "Z");
+    const from = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .replace(/\.\d{3}Z$/, "Z");
 
-      const data = await requestNews(
-        { q: TOPICS.all, from, sortby: "relevance", max: "5" },
-        "top:week",
-        { signal, force },
-      );
-      renderTop(data.articles || []);
-    } catch (err) {
-      if (signal.aborted) return;
+    topXhr = requestNews(
+      { q: TOPICS.all, from: from, sortby: "relevance", max: 5 },
+      "top:week",
+      force,
+    );
+    topXhr
+      .done(function (data) {
+        if (token !== topToken) return;
+        renderTop(data.articles || []);
+      })
+      .fail(function (xhr) {
+        if (token !== topToken) return;
 
-      const saved = await loadFallback(signal, "");
-      if (signal.aborted) return;
-
-      if (saved && saved.length) {
-        renderTop(saved);
-      } else {
-        topList.removeAttribute("aria-busy");
-        showTopMessage(errorMessage(err), true);
-      }
-    }
+        loadFallback("").done(function (saved) {
+          if (token !== topToken) return;
+          if (saved && saved.length) {
+            renderTop(saved);
+          } else {
+            showTopMessage(errorMessage(xhr.status), true);
+          }
+        });
+      });
   }
 
-  filtersBox.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-topic]");
-    if (!button) return;
+  $filters.on("click", "[data-topic]", function () {
+    $filters.find("[data-topic]").removeClass("active").attr("aria-pressed", "false");
+    $(this).addClass("active").attr("aria-pressed", "true");
 
-    filtersBox.querySelectorAll("[data-topic]").forEach((b) => {
-      const active = b === button;
-      b.classList.toggle("active", active);
-      b.setAttribute("aria-pressed", String(active));
-    });
-
-    state.topic = button.dataset.topic;
-    loadNews();
+    state.topic = $(this).attr("data-topic");
+    loadNews(false);
   });
 
-  searchInput.addEventListener("input", () => {
+  $searchInput.on("input", function () {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => {
-      const value = searchInput.value.trim();
+    searchTimer = setTimeout(function () {
+      const value = $.trim($searchInput.val());
       if (value === state.query) return;
       state.query = value;
-      loadNews();
+      loadNews(false);
     }, SEARCH_DELAY);
   });
 
-  searchForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+  $searchForm.on("submit", function (e) {
+    e.preventDefault();
     clearTimeout(searchTimer);
-    state.query = searchInput.value.trim();
-    loadNews();
+    state.query = $.trim($searchInput.val());
+    loadNews(false);
   });
 
-  refreshBtn.addEventListener("click", () => {
-    loadNews({ force: true });
-    loadTop({ force: true });
+  $refreshBtn.on("click", function () {
+    loadNews(true);
+    loadTop(true);
   });
-  retryBtn.addEventListener("click", () => loadNews({ force: true }));
+  $retryBtn.on("click", function () {
+    loadNews(true);
+  });
 
-  loadNews();
-  loadTop();
-})();
+  loadNews(false);
+  loadTop(false);
+});
