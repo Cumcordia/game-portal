@@ -208,7 +208,7 @@
 
       const editButton = document.createElement("button");
       editButton.type = "button";
-      editButton.className = "btn btn-sm btn-outline-light";
+      editButton.className = "btn btn-sm btn-outline-secondary";
       editButton.textContent = "Edit";
       editButton.setAttribute("aria-label", `Edit ${game.name}`);
       editButton.addEventListener("click", () => startEditing(index));
@@ -689,7 +689,10 @@ $(function () {
 
   function writeCache(q, data) {
     try {
-      sessionStorage.setItem(`gnews:${q}`, JSON.stringify({ t: Date.now(), data }));
+      sessionStorage.setItem(
+        `gnews:${q}`,
+        JSON.stringify({ t: Date.now(), data }),
+      );
     } catch {}
   }
 
@@ -712,7 +715,8 @@ $(function () {
       return "The API refused the request: invalid key, daily limit reached, or this domain is not allowed.";
     if (err.status === 429)
       return "Too many requests. Wait a moment and try again.";
-    if (err.status >= 500) return "The news service is temporarily unavailable.";
+    if (err.status >= 500)
+      return "The news service is temporarily unavailable.";
     return "Could not reach the news service. Check your connection.";
   }
 
@@ -907,11 +911,10 @@ $(function () {
     showLoading();
 
     try {
-      const data = await requestNews(
-        { q, max: String(PAGE_SIZE) },
-        q,
-        { signal, force },
-      );
+      const data = await requestNews({ q, max: String(PAGE_SIZE) }, q, {
+        signal,
+        force,
+      });
       showArticles(data.articles || []);
     } catch (err) {
       if (signal.aborted) return;
@@ -920,7 +923,10 @@ $(function () {
       if (signal.aborted) return;
 
       if (saved) {
-        showArticles(saved, "Live news is unavailable. Showing saved articles.");
+        showArticles(
+          saved,
+          "Live news is unavailable. Showing saved articles.",
+        );
       } else {
         showError(errorMessage(err));
       }
@@ -938,7 +944,7 @@ $(function () {
     if (withRetry) {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "btn btn-sm btn-outline-light mt-2";
+      btn.className = "btn btn-sm btn-outline-secondary mt-2";
       btn.textContent = "Try again";
       btn.addEventListener("click", () => loadTop({ force: true }));
       topList.append(btn);

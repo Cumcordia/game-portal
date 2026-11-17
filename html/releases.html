@@ -21,9 +21,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
     />
     <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/theme.js"></script>
   </head>
+
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
         <a class="navbar-brand" href="../index.html">GAMEPORTAL</a>
         <button
@@ -54,6 +56,24 @@
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
+
+            <li class="nav-item ms-lg-2">
+              <button
+                type="button"
+                class="btn btn-sm my-1 theme-toggle-btn"
+                data-theme-toggle
+                aria-label="Switch to light theme"
+                aria-pressed="false"
+              >
+                <i
+                  class="bi bi-sun-fill"
+                  data-theme-icon
+                  aria-hidden="true"
+                ></i>
+                <span data-theme-label>Light</span>
+              </button>
+            </li>
+
             <li class="nav-item ms-lg-3" data-auth-guest>
               <a
                 class="btn btn-outline-danger btn-sm my-1"
@@ -82,7 +102,7 @@
     </nav>
 
     <main class="container py-4">
-      <h1 class="releases-title text-white">Release Calendar</h1>
+      <h1 class="releases-title">Release Calendar</h1>
 
       <section class="releases-grid">
         <article class="release-card">
@@ -155,7 +175,7 @@
         </article>
       </section>
       <div class="table-responsive">
-        <section class="mt-5 mb-4 p-4 border rounded" data-bs-theme="dark">
+        <section class="mt-5 mb-4 p-4 border rounded">
           <h2 id="game-form-title" class="h4 mb-3">Add a game</h2>
 
           <p class="text-secondary">
@@ -222,7 +242,7 @@
                 <button
                   id="game-cancel"
                   type="button"
-                  class="btn btn-outline-light"
+                  class="btn btn-outline-secondary"
                   hidden
                 >
                   Cancel editing
@@ -238,7 +258,7 @@
             aria-live="polite"
           ></div>
         </section>
-        <table class="table table-dark align-middle releases-table">
+        <table class="table align-middle releases-table">
           <caption>
             Game release schedule and review scores
           </caption>
@@ -285,7 +305,7 @@
       </div>
     </main>
 
-    <footer class="text-center text-white bg-dark py-4 mt-5">
+    <footer class="text-center py-4 mt-5">
       <div class="container">
         <div class="mb-2">
           <a href="#" class="text-secondary text-decoration-none me-3"

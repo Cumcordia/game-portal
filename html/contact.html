@@ -13,9 +13,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
     />
     <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/theme.js"></script>
   </head>
+
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
         <a class="navbar-brand" href="../index.html">GAMEPORTAL</a>
         <button
@@ -44,6 +46,24 @@
             <li class="nav-item">
               <a class="nav-link active" href="contact.html">Contact</a>
             </li>
+
+            <li class="nav-item ms-lg-2">
+              <button
+                type="button"
+                class="btn btn-sm my-1 theme-toggle-btn"
+                data-theme-toggle
+                aria-label="Switch to light theme"
+                aria-pressed="false"
+              >
+                <i
+                  class="bi bi-sun-fill"
+                  data-theme-icon
+                  aria-hidden="true"
+                ></i>
+                <span data-theme-label>Light</span>
+              </button>
+            </li>
+
             <li class="nav-item ms-lg-3" data-auth-guest>
               <a
                 class="btn btn-outline-danger btn-sm my-1"
@@ -88,12 +108,7 @@
           <div class="col-lg-7">
             <div class="contact-box p-4 rounded h-100">
               <h2 class="h4 fw-bold mb-4">Send us a message</h2>
-              <form
-                class="contact-form"
-                action="#"
-                method="post"
-                data-bs-theme="dark"
-              >
+              <form class="contact-form" action="#" method="post">
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label for="name" class="form-label">Name</label>
@@ -264,7 +279,7 @@
           </div>
         </div>
       </section>
-      <section class="my-5 p-4 rounded border" data-bs-theme="dark">
+      <section class="my-5 p-4 rounded border">
         <h2 class="h4 mb-3">Join GamePortal</h2>
         <p class="text-secondary">
           Demo sign-in for the course project. No account is created. Passwords
@@ -359,9 +374,117 @@
           ></div>
         </form>
       </section>
+
+      <section class="my-5 p-4 faq-section" aria-labelledby="faq-heading">
+        <h2
+          id="faq-heading"
+          class="h4 fw-bold border-bottom border-danger d-inline-block pb-2 mb-4"
+        >
+          Frequently Asked Questions
+        </h2>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls="faq-answer-1"
+            >
+              <span>How often is the GamePortal news feed updated?</span>
+              <span class="faq-indicator" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-answer-1" class="faq-answer">
+              <p>
+                Our Latest News feed on the Home page pulls live gaming stories
+                from our integrated API. You can also click Refresh, search by
+                keyword, or filter by platform and topic at any time.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls="faq-answer-2"
+            >
+              <span>How do you score and review games?</span>
+              <span class="faq-indicator" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-answer-2" class="faq-answer">
+              <p>
+                Games are rated on a 0 to 10 scale based on gameplay mechanics,
+                story, performance, and overall value. We never accept paid
+                score boosts from publishers.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls="faq-answer-3"
+            >
+              <span
+                >Are changes in the Release Calendar saved permanently?</span
+              >
+              <span class="faq-indicator" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-answer-3" class="faq-answer">
+              <p>
+                No. Adding, editing, or deleting entries in the Release Calendar
+                table applies to your current session only and resets when the
+                page reloads.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls="faq-answer-4"
+            >
+              <span>Does signing in store my password?</span>
+              <span class="faq-indicator" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-answer-4" class="faq-answer">
+              <p>
+                No. The sign-in form validates your input locally and only saves
+                non-sensitive session info (such as your name) in your browser's
+                localStorage. Passwords are never saved.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls="faq-answer-5"
+            >
+              <span>How can I submit a news tip or review request?</span>
+              <span class="faq-indicator" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-answer-5" class="faq-answer">
+              <p>
+                Use the contact form at the top of this page, choose the right
+                topic (News tip or Review request), and include links or
+                details. Our team typically responds within 24 hours.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="text-center text-white bg-dark py-4 mt-5">
+    <footer class="text-center py-4 mt-5">
       <div class="container">
         <div class="mb-2">
           <a href="#" class="text-secondary text-decoration-none me-3"
@@ -381,10 +504,14 @@
           ChatGPT assisted with code examples, explanations, and debugging of
           the demo sign-in and logout feature.
         </p>
+        <p class="small text-secondary mb-0">
+          Gemini assisted with debugging light/dark theme toggle.
+        </p>
       </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/faq.js"></script>
     <script src="../js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>

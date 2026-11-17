@@ -36,7 +36,7 @@ function signOut() {
   try {
     localStorage.removeItem(KEY);
   } catch {
-    alert("Failed to sign out: browser storage is unavailable")
+    alert("Failed to sign out: browser storage is unavailable");
     return;
   }
   updateUI();

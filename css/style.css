@@ -18,6 +18,23 @@
   --transition: 0.3s;
 }
 
+[data-bs-theme="light"] {
+  --bg: #f4f5f7;
+  --bg-dark: #ffffff;
+  --surface: #ffffff;
+  --surface-alt: #eceef2;
+  --row-hover: #fde8ee;
+
+  --border: #d0d5dd;
+  --accent: #c3073f;
+  --accent-dark: #950740;
+  --accent-deep: #6f2232;
+
+  --text: #18181b;
+  --text-soft: #3f3f46;
+  --text-muted: #52525b;
+}
+
 body {
   background-color: var(--bg) !important;
   color: var(--text);
@@ -99,7 +116,11 @@ body {
 
 .hero-section {
   background:
-    linear-gradient(180deg, rgba(26, 26, 29, 0.4) 0%, var(--bg) 100%),
+    linear-gradient(
+      180deg,
+      rgba(17, 17, 19, 0.55) 0%,
+      rgba(17, 17, 19, 0.88) 100%
+    ),
     url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbGSjzvnfjp-W9rsa7jeVvK96Kwn6UBY5qTx9mFs9TyOOd9ngUWhxxOpQ&s=10")
       center/cover no-repeat;
   border-radius: 12px;
@@ -193,6 +214,17 @@ body {
   color: var(--text-soft);
   font-size: 0.9rem;
   margin: 0;
+}
+
+.releases-table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--text);
+  --bs-table-border-color: var(--border);
+}
+
+.releases-table thead th {
+  background-color: var(--surface-alt);
+  color: var(--text);
 }
 
 .releases-table caption {
@@ -366,7 +398,7 @@ body {
 
 .lightbox-caption {
   margin-top: 12px;
-  color: var(--text);
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -403,6 +435,8 @@ body {
     background-color var(--transition),
     border-color var(--transition);
   z-index: 2;
+  background: rgba(36, 36, 39, 0.8);
+  color: #ffffff;
 }
 
 .lightbox-arrow:hover,
@@ -481,7 +515,7 @@ footer {
   border-top: 1px solid var(--border);
   margin-top: 50px;
   padding: 20px 0;
-  color: var(--border);
+  color: var(--text-muted);
 }
 
 .auth-greeting {
@@ -522,27 +556,27 @@ footer {
   }
 }
 
-.news-filter-btn {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background-color: var(--surface);
-  color: var(--text);
-  cursor: pointer;
+/* Theme toggle button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-color: var(--border);
+  color: var(--text-soft);
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition);
 }
 
-.news-filter-btn:hover,
-.news-filter-btn.active {
+.theme-toggle-btn:hover,
+.theme-toggle-btn:focus-visible {
   background-color: var(--accent-dark);
   border-color: var(--accent);
+  color: #ffffff;
 }
 
-.news-state {
-  padding: 2rem;
-  text-align: center;
-  color: var(--text-muted);
-}
-
+/* Contact boxes (theme-safe) */
 .contact-hero,
 .contact-box,
 .contact-info-item {
@@ -557,11 +591,76 @@ footer {
 
 .contact-info-item {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  align-items: center;
+  gap: 14px;
 }
 
 .contact-icon {
+  font-size: 1.4rem;
   color: var(--accent);
-  font-size: 1.5rem;
+}
+
+/* FAQ Accordion */
+.faq-section {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+
+.faq-item.is-open,
+.faq-item:hover {
+  border-color: var(--accent);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.faq-indicator {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.faq-answer {
+  display: none;
+  padding: 0 20px 16px;
+  color: var(--text-soft);
+  border-top: 1px solid var(--border);
+}
+
+.faq-answer p {
+  margin: 12px 0 0;
 }
