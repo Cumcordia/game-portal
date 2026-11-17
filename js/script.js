@@ -208,7 +208,7 @@
 
       const editButton = document.createElement("button");
       editButton.type = "button";
-      editButton.className = "btn btn-sm btn-outline-light";
+      editButton.className = "btn btn-sm btn-outline-secondary";
       editButton.textContent = "Edit";
       editButton.setAttribute("aria-label", `Edit ${game.name}`);
       editButton.addEventListener("click", () => startEditing(index));
@@ -944,7 +944,7 @@ $(function () {
     if (withRetry) {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "btn btn-sm btn-outline-light mt-2";
+      btn.className = "btn btn-sm btn-outline-secondary mt-2";
       btn.textContent = "Try again";
       btn.addEventListener("click", () => loadTop({ force: true }));
       topList.append(btn);
