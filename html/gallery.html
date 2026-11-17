@@ -35,7 +35,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
             <li class="nav-item">
               <a class="nav-link" href="../index.html">Home</a>
             </li>
@@ -50,6 +50,25 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item" data-auth-guest>
+              <a class="nav-link" href="contact.html#registration-form">
+                Sign in
+              </a>
+            </li>
+
+            <li class="nav-item d-none" data-auth-user>
+              <span class="navbar-text auth-greeting" data-auth-name></span>
+            </li>
+
+            <li class="nav-item d-none" data-auth-user>
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm my-1"
+                data-auth-logout
+              >
+                Logout
+              </button>
             </li>
           </ul>
         </div>
@@ -209,6 +228,7 @@
       integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U="
       crossorigin="anonymous"
     ></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/script.js"></script>
   </body>
 </html>
