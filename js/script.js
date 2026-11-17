@@ -689,7 +689,10 @@ $(function () {
 
   function writeCache(q, data) {
     try {
-      sessionStorage.setItem(`gnews:${q}`, JSON.stringify({ t: Date.now(), data }));
+      sessionStorage.setItem(
+        `gnews:${q}`,
+        JSON.stringify({ t: Date.now(), data }),
+      );
     } catch {}
   }
 
@@ -712,7 +715,8 @@ $(function () {
       return "The API refused the request: invalid key, daily limit reached, or this domain is not allowed.";
     if (err.status === 429)
       return "Too many requests. Wait a moment and try again.";
-    if (err.status >= 500) return "The news service is temporarily unavailable.";
+    if (err.status >= 500)
+      return "The news service is temporarily unavailable.";
     return "Could not reach the news service. Check your connection.";
   }
 
@@ -907,11 +911,10 @@ $(function () {
     showLoading();
 
     try {
-      const data = await requestNews(
-        { q, max: String(PAGE_SIZE) },
-        q,
-        { signal, force },
-      );
+      const data = await requestNews({ q, max: String(PAGE_SIZE) }, q, {
+        signal,
+        force,
+      });
       showArticles(data.articles || []);
     } catch (err) {
       if (signal.aborted) return;
@@ -920,7 +923,10 @@ $(function () {
       if (signal.aborted) return;
 
       if (saved) {
-        showArticles(saved, "Live news is unavailable. Showing saved articles.");
+        showArticles(
+          saved,
+          "Live news is unavailable. Showing saved articles.",
+        );
       } else {
         showError(errorMessage(err));
       }
