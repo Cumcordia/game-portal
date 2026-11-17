@@ -342,140 +342,6 @@
 })();
 
 // =================================================================
-// Homepage Part
-// =================================================================
-$(function () {
-  const $modalEl = $("#articleModal");
-  if ($modalEl.length === 0) return;
-
-  const articles = {
-    gta6: {
-      title: "Grand Theft Auto VI",
-      tags: ["Main Announcement", "PS5", "Xbox"],
-      paragraphs: [
-        "The long-awaited return to Vice City is almost here. The first trailer shows a sun-soaked, neon-lit map that feels bigger and more alive than anything the series has done before.",
-        "Fans have already broken down the footage frame by frame: dynamic crowds, a reworked driving model and a story that follows a pair of criminals on the run.",
-        "The release is scheduled for 19 November 2026 on PS5 and Xbox. A PC version has not been announced yet.",
-      ],
-    },
-    "top-1": {
-      title: "Half-Life 3 release in doubt again: rumors and facts",
-      tags: ["Top 5 of the week", "PC"],
-      paragraphs: [
-        "Another wave of leaks has revived talk about Half-Life 3, but there is still no official confirmation from Valve.",
-        "We separate what is known from what is pure speculation: job listings, datamined files and community theories.",
-      ],
-    },
-    "top-2": {
-      title: "The Best Graphics Cards for 4K Gaming in 2026",
-      tags: ["Top 5 of the week", "Hardware"],
-      paragraphs: [
-        "Playing at 4K with high settings still demands a powerful GPU. We compared the current lineup by performance, power draw and price.",
-        "Our pick depends on your budget: a high-end card for maximum settings and ray tracing, or a mid-range model with upscaling for a smooth 60 FPS.",
-      ],
-    },
-    "top-3": {
-      title: "Steam Deck 2 Review: Is It Worth Buying?",
-      tags: ["Top 5 of the week", "Handheld"],
-      paragraphs: [
-        "The new handheld brings a faster chip, a better screen and longer battery life. But is the upgrade worth it for owners of the first model?",
-        "In this review we look at performance in demanding games, build quality, heat and noise, and who should wait for a discount.",
-      ],
-    },
-    "top-4": {
-      title: "10 Hidden Details in the Elden Ring DLC Trailer",
-      tags: ["Top 5 of the week", "PC", "PS5", "Xbox"],
-      paragraphs: [
-        "The trailer is packed with references: familiar armor sets, a mysterious silhouette in the background and new enemy designs.",
-        "We went through it shot by shot and collected ten details that hint at the story and the new region.",
-      ],
-    },
-    "top-5": {
-      title: "Results of sales at specialized stores",
-      tags: ["Top 5 of the week", "Sales"],
-      paragraphs: [
-        "Seasonal sales ended with record numbers for several digital stores. Indie hits and older AAA games performed best.",
-        "Here is a short summary of the best-selling titles and the biggest discounts of the week.",
-      ],
-    },
-    "news-1": {
-      title: "The Witcher 4 Update",
-      tags: ["PC", "PS5"],
-      paragraphs: [
-        "The developers have shared new details about the Unreal Engine 5 game engine that powers the next chapter of the saga.",
-        "According to the team, the new technology allows for denser cities, more detailed characters and seamless transitions between locations.",
-      ],
-    },
-    "news-2": {
-      title: "S.T.A.L.K.E.R. 2 Update",
-      tags: ["Xbox", "PC"],
-      paragraphs: [
-        "A major patch has been released, fixing optimization issues and improving AI behavior in the Zone.",
-        "Players should notice more stable frame rates, fewer crashes and smarter enemy tactics during firefights.",
-      ],
-    },
-    "news-3": {
-      title: "Announcement of a new exclusive",
-      tags: ["PS5"],
-      paragraphs: [
-        "Naughty Dog has unveiled a new sci-fi project. The teaser shows a lone traveler on an abandoned station.",
-        "The studio promises a story-driven adventure, but the release window and gameplay details are still under wraps.",
-      ],
-    },
-    "news-4": {
-      title: "Cyberpunk 2077 Sequel",
-      tags: ["PC", "PS5", "Xbox"],
-      paragraphs: [
-        "Project Orion enters the active development stage in Boston, with a growing team working on the next Night City story.",
-        "The studio says it wants to build on the lessons of the first game and deliver a more polished launch.",
-      ],
-    },
-  };
-
-  const modal = bootstrap.Modal.getOrCreateInstance($modalEl[0]);
-  const $title = $("#articleModalTitle");
-  const $img = $("#articleModalImg");
-  const $tags = $("#articleModalTags");
-  const $body = $("#articleModalBody");
-
-  function openArticle(id, $source) {
-    const article = articles[id];
-    if (!article) return;
-
-    $title.text(article.title);
-
-    const $srcImg = $source.find("img").first();
-    if ($srcImg.length) {
-      $img.attr({ src: $srcImg.attr("src"), alt: $srcImg.attr("alt") });
-      $img.removeClass("d-none");
-    } else {
-      $img.removeAttr("src").addClass("d-none");
-    }
-
-    $tags.empty();
-    article.tags.forEach(function (tag) {
-      $("<span>", { class: "badge badge-platform me-1", text: tag }).appendTo(
-        $tags,
-      );
-    });
-
-    $body.empty();
-    article.paragraphs.forEach(function (text) {
-      $("<p>").text(text).appendTo($body);
-    });
-
-    modal.show();
-  }
-
-  $("[data-article]")
-    .css("cursor", "pointer")
-    .on("click", function (e) {
-      e.preventDefault();
-      openArticle($(this).attr("data-article"), $(this));
-    });
-});
-
-// =================================================================
 // Sergey's Part
 // ABOUT PAGE: Dynamic Search, department filter, animated counter
 // =================================================================
@@ -678,3 +544,529 @@ $(function () {
     startX = null;
   });
 });
+
+// =================================================================
+// Home page: Games News
+// =================================================================
+$(function () {
+  const $modalEl = $("#articleModal");
+  if ($modalEl.length === 0) return;
+
+  const articles = {
+    gta6: {
+      title: "Grand Theft Auto VI",
+      tags: ["Main Announcement", "PS5", "Xbox"],
+      paragraphs: [
+        "The long-awaited return to Vice City is almost here. The first trailer shows a sun-soaked, neon-lit map that feels bigger and more alive than anything the series has done before.",
+        "Fans have already broken down the footage frame by frame: dynamic crowds, a reworked driving model and a story that follows a pair of criminals on the run.",
+        "The release is scheduled for 19 November 2026 on PS5 and Xbox. A PC version has not been announced yet.",
+      ],
+    },
+  };
+
+  const modal = bootstrap.Modal.getOrCreateInstance($modalEl[0]);
+  const $title = $("#articleModalTitle");
+  const $img = $("#articleModalImg");
+  const $tags = $("#articleModalTags");
+  const $body = $("#articleModalBody");
+
+  function openArticle(id, $source) {
+    const article = articles[id];
+    if (!article) return;
+
+    $title.text(article.title);
+
+    const $srcImg = $source.find("img").first();
+    if ($srcImg.length) {
+      $img.attr({ src: $srcImg.attr("src"), alt: $srcImg.attr("alt") });
+      $img.removeClass("d-none");
+    } else {
+      $img.removeAttr("src").addClass("d-none");
+    }
+
+    $tags.empty();
+    article.tags.forEach(function (tag) {
+      $("<span>", { class: "badge badge-platform me-1", text: tag }).appendTo(
+        $tags,
+      );
+    });
+
+    $body.empty();
+    article.paragraphs.forEach(function (text) {
+      $("<p>").text(text).appendTo($body);
+    });
+
+    modal.show();
+  }
+
+  $("[data-article]")
+    .css("cursor", "pointer")
+    .on("click", function (e) {
+      e.preventDefault();
+      openArticle($(this).attr("data-article"), $(this));
+    });
+});
+
+(() => {
+  const grid = document.getElementById("news-grid");
+  if (!grid) return;
+
+  const API_KEY = "API-KEY-HERE";
+  const ENDPOINT = "https://gnews.io/api/v4/search";
+  const FALLBACK_URL = "data/news-fallback.json";
+  const PAGE_SIZE = 10;
+  const CACHE_TTL = 10 * 60 * 1000;
+  const SEARCH_DELAY = 500;
+
+  const PLACEHOLDER_IMG =
+    "data:image/svg+xml;utf8," +
+    encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200">' +
+        '<rect width="100%" height="100%" fill="#2b2b2f"/>' +
+        '<text x="50%" y="50%" fill="#b0b0b0" font-family="sans-serif" ' +
+        'font-size="18" text-anchor="middle" dominant-baseline="middle">' +
+        "No image</text></svg>",
+    );
+
+  const TOPICS = {
+    all: '"video game" OR gaming OR esports OR PlayStation OR Xbox OR Nintendo OR Steam',
+    pc: 'Steam OR "PC gaming" OR "Epic Games" OR "graphics card"',
+    console: 'PlayStation OR PS5 OR Xbox OR "Nintendo Switch"',
+    esports: 'esports OR "Counter-Strike" OR "Dota 2" OR "League of Legends"',
+    industry:
+      '"game developer" OR "game studio" OR "game release" OR "video game industry"',
+  };
+
+  const searchForm = document.getElementById("news-search-form");
+  const searchInput = document.getElementById("news-search");
+  const filtersBox = document.getElementById("news-filters");
+  const refreshBtn = document.getElementById("news-refresh");
+  const statusEl = document.getElementById("news-status");
+  const errorBox = document.getElementById("news-error");
+  const errorText = document.getElementById("news-error-text");
+  const retryBtn = document.getElementById("news-retry");
+  const emptyBox = document.getElementById("news-empty");
+  const topList = document.getElementById("top-news-list");
+
+  const modalEl = document.getElementById("articleModal");
+  const modalTitle = document.getElementById("articleModalTitle");
+  const modalImg = document.getElementById("articleModalImg");
+  const modalTags = document.getElementById("articleModalTags");
+  const modalBody = document.getElementById("articleModalBody");
+
+  const state = { topic: "all", query: "" };
+  let controller = null;
+  let searchTimer = null;
+
+  class ApiError extends Error {
+    constructor(status) {
+      super(`HTTP ${status}`);
+      this.status = status;
+    }
+  }
+
+  function toggle(element, show) {
+    element.classList.toggle("d-none", !show);
+  }
+
+  function buildQuery() {
+    const topic = TOPICS[state.topic];
+    if (!state.query) return topic;
+    const safe = state.query.replace(/["()]/g, " ").trim().slice(0, 50);
+    return `"${safe}" AND (${topic})`;
+  }
+
+  function readCache(q) {
+    try {
+      const raw = sessionStorage.getItem(`gnews:${q}`);
+      if (!raw) return null;
+      const { t, data } = JSON.parse(raw);
+      return Date.now() - t < CACHE_TTL ? data : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function writeCache(q, data) {
+    try {
+      sessionStorage.setItem(`gnews:${q}`, JSON.stringify({ t: Date.now(), data }));
+    } catch {}
+  }
+
+  async function requestNews(params, cacheKey, { signal, force }) {
+    let data = force ? null : readCache(cacheKey);
+    if (data) return data;
+
+    const qs = new URLSearchParams({ lang: "en", apikey: API_KEY, ...params });
+    const res = await fetch(`${ENDPOINT}?${qs}`, { signal });
+    if (!res.ok) throw new ApiError(res.status);
+
+    data = await res.json();
+    writeCache(cacheKey, data);
+    return data;
+  }
+
+  function errorMessage(err) {
+    if (err.status === 400) return "The news API rejected the request.";
+    if (err.status === 401 || err.status === 403)
+      return "The API refused the request: invalid key, daily limit reached, or this domain is not allowed.";
+    if (err.status === 429)
+      return "Too many requests. Wait a moment and try again.";
+    if (err.status >= 500) return "The news service is temporarily unavailable.";
+    return "Could not reach the news service. Check your connection.";
+  }
+
+  function showLoading() {
+    toggle(errorBox, false);
+    toggle(emptyBox, false);
+    refreshBtn.disabled = true;
+    grid.setAttribute("aria-busy", "true");
+    statusEl.textContent = "Loading news…";
+    grid.innerHTML = Array.from(
+      { length: 4 },
+      () => `
+        <div class="col">
+          <div class="card card-news" aria-hidden="true">
+            <div class="news-skeleton-img"></div>
+            <div class="card-body placeholder-glow">
+              <span class="placeholder col-4 mb-2"></span>
+              <span class="placeholder col-10 mb-2"></span>
+              <span class="placeholder col-8"></span>
+            </div>
+          </div>
+        </div>`,
+    ).join("");
+  }
+
+  function finishLoading() {
+    refreshBtn.disabled = false;
+    grid.removeAttribute("aria-busy");
+  }
+
+  function showError(message) {
+    finishLoading();
+    grid.replaceChildren();
+    toggle(emptyBox, false);
+    errorText.textContent = message;
+    toggle(errorBox, true);
+    statusEl.textContent = "";
+  }
+
+  function showEmpty() {
+    finishLoading();
+    grid.replaceChildren();
+    toggle(errorBox, false);
+    toggle(emptyBox, true);
+    statusEl.textContent = "0 articles found.";
+  }
+
+  function showArticles(articles, note) {
+    finishLoading();
+    toggle(errorBox, false);
+
+    const list = articles.filter((a) => a && a.title);
+    if (list.length === 0) {
+      showEmpty();
+      return;
+    }
+
+    toggle(emptyBox, false);
+    grid.replaceChildren(...list.map(createCard));
+    statusEl.textContent = note || `${list.length} articles`;
+  }
+
+  function formatDate(iso) {
+    const date = new Date(iso);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
+  function createCard(article) {
+    const col = document.createElement("div");
+    col.className = "col";
+
+    const card = document.createElement("article");
+    card.className = "card card-news news-card";
+
+    const img = document.createElement("img");
+    img.className = "card-img-top";
+    img.alt = "";
+    img.loading = "lazy";
+    img.referrerPolicy = "no-referrer";
+    img.src = article.image || PLACEHOLDER_IMG;
+    img.addEventListener("error", () => {
+      img.src = PLACEHOLDER_IMG;
+    });
+
+    const body = document.createElement("div");
+    body.className = "card-body d-flex flex-column";
+
+    const meta = document.createElement("div");
+    meta.className = "mb-2 d-flex flex-wrap align-items-center gap-2";
+
+    const source = document.createElement("span");
+    source.className = "badge badge-platform";
+    source.textContent = article.source?.name || "News";
+
+    const date = document.createElement("small");
+    date.className = "text-secondary";
+    date.textContent = formatDate(article.publishedAt);
+
+    meta.append(source, date);
+
+    const title = document.createElement("h5");
+    title.className = "card-title text-white";
+    title.textContent = article.title;
+
+    const text = document.createElement("p");
+    text.className = "card-text text-secondary flex-grow-1";
+    text.textContent = article.description || "";
+
+    const more = document.createElement("button");
+    more.type = "button";
+    more.className =
+      "btn btn-link text-danger fw-bold text-decoration-none p-0 align-self-start";
+    more.textContent = "Read more →";
+
+    body.append(meta, title, text, more);
+    card.append(img, body);
+    card.addEventListener("click", () => openArticle(article));
+    col.append(card);
+    return col;
+  }
+
+  function openArticle(article) {
+    modalTitle.textContent = article.title;
+
+    if (article.image) {
+      modalImg.src = article.image;
+      modalImg.alt = article.title;
+      modalImg.classList.remove("d-none");
+    } else {
+      modalImg.removeAttribute("src");
+      modalImg.classList.add("d-none");
+    }
+
+    modalTags.replaceChildren();
+    const source = document.createElement("span");
+    source.className = "badge badge-platform me-2";
+    source.textContent = article.source?.name || "News";
+    const date = document.createElement("small");
+    date.className = "text-secondary";
+    date.textContent = formatDate(article.publishedAt);
+    modalTags.append(source, date);
+
+    modalBody.replaceChildren();
+    const p = document.createElement("p");
+    p.textContent = article.description || "No description available.";
+    modalBody.append(p);
+
+    if (/^https?:\/\//i.test(article.url || "")) {
+      const link = document.createElement("a");
+      link.className = "btn btn-custom";
+      link.href = article.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Read the full article";
+      modalBody.append(link);
+    }
+
+    bootstrap.Modal.getOrCreateInstance(modalEl).show();
+  }
+
+  async function loadFallback(signal, query = state.query) {
+    try {
+      const res = await fetch(FALLBACK_URL, { signal });
+      if (!res.ok) return null;
+      const data = await res.json();
+      const q = query.toLowerCase();
+      return (data.articles || []).filter(
+        (a) =>
+          !q || `${a.title} ${a.description || ""}`.toLowerCase().includes(q),
+      );
+    } catch {
+      return null;
+    }
+  }
+
+  async function loadNews({ force = false } = {}) {
+    if (API_KEY.startsWith("PASTE")) {
+      showError("Add your GNews API key to API_KEY in js/script.js.");
+      return;
+    }
+
+    const q = buildQuery();
+    if (controller) controller.abort();
+    controller = new AbortController();
+    const { signal } = controller;
+
+    showLoading();
+
+    try {
+      const data = await requestNews(
+        { q, max: String(PAGE_SIZE) },
+        q,
+        { signal, force },
+      );
+      showArticles(data.articles || []);
+    } catch (err) {
+      if (signal.aborted) return;
+
+      const saved = await loadFallback(signal);
+      if (signal.aborted) return;
+
+      if (saved) {
+        showArticles(saved, "Live news is unavailable. Showing saved articles.");
+      } else {
+        showError(errorMessage(err));
+      }
+    }
+  }
+
+  let topController = null;
+
+  function showTopMessage(text, withRetry = false) {
+    const p = document.createElement("p");
+    p.className = "small text-secondary mb-0";
+    p.textContent = text;
+    topList.replaceChildren(p);
+
+    if (withRetry) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "btn btn-sm btn-outline-light mt-2";
+      btn.textContent = "Try again";
+      btn.addEventListener("click", () => loadTop({ force: true }));
+      topList.append(btn);
+    }
+  }
+
+  function showTopLoading() {
+    topList.setAttribute("aria-busy", "true");
+    topList.innerHTML = Array.from(
+      { length: 5 },
+      () =>
+        '<div class="placeholder-glow mb-3" aria-hidden="true">' +
+        '<span class="placeholder col-12"></span>' +
+        '<span class="placeholder col-8"></span></div>',
+    ).join("");
+  }
+
+  function renderTop(articles) {
+    topList.removeAttribute("aria-busy");
+
+    const seen = new Set();
+    const items = articles
+      .filter((a) => a && a.title && !seen.has(a.title) && seen.add(a.title))
+      .slice(0, 5);
+
+    if (items.length === 0) {
+      showTopMessage("No top stories this week.");
+      return;
+    }
+
+    topList.replaceChildren(
+      ...items.map((article, index) => {
+        const link = document.createElement("a");
+        link.href = "#";
+        link.className = "top-news-item";
+
+        const num = document.createElement("span");
+        num.className = "top-news-num";
+        num.textContent = String(index + 1);
+
+        const title = document.createElement("div");
+        title.textContent = article.title;
+
+        link.append(num, title);
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          openArticle(article);
+        });
+        return link;
+      }),
+    );
+  }
+
+  async function loadTop({ force = false } = {}) {
+    if (API_KEY.startsWith("PASTE")) {
+      showTopMessage("Add your GNews API key to load top stories.");
+      return;
+    }
+
+    if (topController) topController.abort();
+    topController = new AbortController();
+    const { signal } = topController;
+
+    showTopLoading();
+
+    try {
+      const from = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .replace(/\.\d{3}Z$/, "Z");
+
+      const data = await requestNews(
+        { q: TOPICS.all, from, sortby: "relevance", max: "5" },
+        "top:week",
+        { signal, force },
+      );
+      renderTop(data.articles || []);
+    } catch (err) {
+      if (signal.aborted) return;
+
+      const saved = await loadFallback(signal, "");
+      if (signal.aborted) return;
+
+      if (saved && saved.length) {
+        renderTop(saved);
+      } else {
+        topList.removeAttribute("aria-busy");
+        showTopMessage(errorMessage(err), true);
+      }
+    }
+  }
+
+  filtersBox.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-topic]");
+    if (!button) return;
+
+    filtersBox.querySelectorAll("[data-topic]").forEach((b) => {
+      const active = b === button;
+      b.classList.toggle("active", active);
+      b.setAttribute("aria-pressed", String(active));
+    });
+
+    state.topic = button.dataset.topic;
+    loadNews();
+  });
+
+  searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      const value = searchInput.value.trim();
+      if (value === state.query) return;
+      state.query = value;
+      loadNews();
+    }, SEARCH_DELAY);
+  });
+
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    clearTimeout(searchTimer);
+    state.query = searchInput.value.trim();
+    loadNews();
+  });
+
+  refreshBtn.addEventListener("click", () => {
+    loadNews({ force: true });
+    loadTop({ force: true });
+  });
+  retryBtn.addEventListener("click", () => loadNews({ force: true }));
+
+  loadNews();
+  loadTop();
+})();
