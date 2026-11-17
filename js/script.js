@@ -108,21 +108,20 @@
     const results = fields.map((field) => validate(field));
 
     if (!results.every(Boolean)) {
-      if (!Auth.signIn(name.value)) {
-        status.className = "alert alert-danger mt-3";
-        status.textContent = "Failed to save sign-in.";
-        return;
-      }
-
-      status.className = "alert alert-success mt-3";
-      status.textContent = "You are signed in!";
+      status.className = "alert alert-danger mt-3";
+      status.textContent = "Please correct the highlighted fields.";
       fields.find((field, index) => !results[index]).focus();
       return;
     }
 
+    if (!Auth.signIn(name.value)) {
+      status.className = "alert alert-danger mt-3";
+      status.textContent = "Failed to save sign-in.";
+      return;
+    }
+
     status.className = "alert alert-success mt-3";
-    status.textContent =
-      "Validation passed! This is a demo; no account was created.";
+    status.textContent = "You are signed in!";
 
     form.reset();
 

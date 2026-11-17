@@ -44,6 +44,25 @@
             <li class="nav-item">
               <a class="nav-link active" href="contact.html">Contacts</a>
             </li>
+            <li class="nav-item" data-auth-guest>
+              <a class="nav-link" href="contact.html#registration-form">
+                Sign in
+              </a>
+            </li>
+
+            <li class="nav-item d-none" data-auth-user>
+              <span class="navbar-text mx-lg-3" data-auth-name></span>
+            </li>
+
+            <li class="nav-item d-none" data-auth-user>
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm my-1"
+                data-auth-logout
+              >
+                Logout
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -245,7 +264,9 @@
       <section class="my-5 p-4 rounded border" data-bs-theme="dark">
         <h2 class="h4 mb-3">Join GamePortal</h2>
         <p class="text-secondary">
-          Try our registration form. This demo does not create an account.
+          Demo sign-in for the course project. No account is created. Passwords
+          are validated locally, but are not saved or checked against an
+          account.
         </p>
 
         <form id="registration-form" novalidate>
@@ -323,9 +344,7 @@
             </div>
 
             <div class="col-12">
-              <button type="submit" class="btn btn-custom">
-                Check registration
-              </button>
+              <button type="submit" class="btn btn-custom">Sign in</button>
             </div>
           </div>
 
