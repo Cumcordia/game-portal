@@ -53,8 +53,11 @@
             <li class="nav-item">
               <a class="nav-link" href="./html/contact.html">Contact</a>
             </li>
-            <li class="nav-item" data-auth-guest>
-              <a class="nav-link" href="html/contact.html#registration-form">
+            <li class="nav-item ms-lg-3" data-auth-guest>
+              <a
+                class="btn btn-outline-danger btn-sm my-1"
+                href="html/contact.html#registration-form"
+              >
                 Sign in
               </a>
             </li>
@@ -98,80 +101,131 @@
             <div class="sidebar-box">
               <h4 class="sidebar-title">Top 5 of the week</h4>
 
-              <div id="top-news-list" aria-live="polite"></div>
+              <a href="#" class="top-news-item" data-article="top-1">
+                <span class="top-news-num">1</span>
+                <div>Half-Life 3 release in doubt again: rumors and facts</div>
+              </a>
+              <a href="#" class="top-news-item" data-article="top-2">
+                <span class="top-news-num">2</span>
+                <div>The Best Graphics Cards for 4K Gaming in 2026</div>
+              </a>
+              <a href="#" class="top-news-item" data-article="top-3">
+                <span class="top-news-num">3</span>
+                <div>Steam Deck 2 Review: Is It Worth Buying?</div>
+              </a>
+              <a href="#" class="top-news-item" data-article="top-4">
+                <span class="top-news-num">4</span>
+                <div>10 Hidden Details in the Elden Ring DLC Trailer</div>
+              </a>
+              <a href="#" class="top-news-item" data-article="top-5">
+                <span class="top-news-num">5</span>
+                <div>Results of sales at specialized stores</div>
+              </a>
             </div>
           </div>
 
           <div class="col-lg-8">
-            <div
-              class="d-flex flex-wrap justify-content-between align-items-center gap-2 border-bottom border-danger pb-2 mb-3"
-            >
-              <h3 class="mb-0">Latest news</h3>
-              <button
-                type="button"
-                id="news-refresh"
-                class="btn btn-sm btn-outline-light"
-              >
-                <i class="bi bi-arrow-clockwise"></i> Refresh
-              </button>
-            </div>
-
-            <form
-              id="news-search-form"
-              class="news-search mb-3"
-              role="search"
-              novalidate
-            >
-              <label for="news-search" class="visually-hidden"
-                >Search gaming news</label
-              >
-              <div class="input-group">
-                <input
-                  type="search"
-                  id="news-search"
-                  class="form-control"
-                  placeholder="Search gaming news, e.g. Elden Ring"
-                  maxlength="50"
-                  autocomplete="off"
-                />
-                <button type="submit" class="btn btn-custom">
-                  <i class="bi bi-search"></i> Search
-                </button>
+            <h3 class="mb-4 border-bottom border-danger pb-2">Latest news</h3>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+              <div class="col">
+                <div class="card card-news" data-article="news-1">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-wSGxIMgecoBRNcXYD48aDGC3YwvouFA7e6zlFJfZw&s=10"
+                    class="card-img-top"
+                    alt="Скриншот игры"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <div class="mb-2">
+                      <span class="badge badge-platform">PC</span>
+                      <span class="badge badge-platform">PS5</span>
+                    </div>
+                    <h5 class="card-title text-white">The Witcher 4 Update</h5>
+                    <p class="card-text text-secondary flex-grow-1">
+                      The developers have shared new details about the Unreal
+                      Engine 5 game engine.
+                    </p>
+                    <a href="#" class="text-danger fw-bold text-decoration-none"
+                      >Read more &rarr;</a
+                    >
+                  </div>
+                </div>
               </div>
-            </form>
 
-            <div
-              id="news-filters"
-              class="d-flex flex-wrap gap-2 mb-3"
-              role="group"
-              aria-label="News topics"
-            >
-              <button type="button" class="news-filter-btn active" data-topic="all" aria-pressed="true">All</button>
-              <button type="button" class="news-filter-btn" data-topic="pc" aria-pressed="false">PC</button>
-              <button type="button" class="news-filter-btn" data-topic="console" aria-pressed="false">Consoles</button>
-              <button type="button" class="news-filter-btn" data-topic="esports" aria-pressed="false">Esports</button>
-              <button type="button" class="news-filter-btn" data-topic="industry" aria-pressed="false">Industry</button>
+              <div class="col">
+                <div class="card card-news" data-article="news-2">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQok91LBmXaAqzlPIsbfNcfSfN7IHaJunJDZy3Eef45Q&s=10"
+                    class="card-img-top"
+                    alt="Скриншот игры"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <div class="mb-2">
+                      <span class="badge badge-platform">Xbox</span>
+                      <span class="badge badge-platform">PC</span>
+                    </div>
+                    <h5 class="card-title text-white">
+                      S.T.A.L.K.E.R. 2 Update
+                    </h5>
+                    <p class="card-text text-secondary flex-grow-1">
+                      A major patch has been released, fixing optimization and
+                      AI behavior in the Zone.
+                    </p>
+                    <a href="#" class="text-danger fw-bold text-decoration-none"
+                      >Read more &rarr;</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card card-news" data-article="news-3">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgKANsH-aZWIAoT8mVjv_WTK6B2q6aRyut7ljLLBfxHg&s=10"
+                    class="card-img-top"
+                    alt="Скриншот игры"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <div class="mb-2">
+                      <span class="badge badge-platform">PS5</span>
+                    </div>
+                    <h5 class="card-title text-white">
+                      Announcement of a new exclusive
+                    </h5>
+                    <p class="card-text text-secondary flex-grow-1">
+                      Naughty Dog has unveiled a new sci-fi project.
+                    </p>
+                    <a href="#" class="text-danger fw-bold text-decoration-none"
+                      >Read more &rarr;</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card card-news" data-article="news-4">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnxUC7ozhi1HKbXfn6hO-HUeQTagurWmi_0EJhr1BemA&s=10"
+                    class="card-img-top"
+                    alt="Скриншот игры"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <div class="mb-2">
+                      <span class="badge badge-platform">PC</span>
+                      <span class="badge badge-platform">PS5</span>
+                      <span class="badge badge-platform">Xbox</span>
+                    </div>
+                    <h5 class="card-title text-white">Cyberpunk 2077 Sequel</h5>
+                    <p class="card-text text-secondary flex-grow-1">
+                      Project Orion enters the active development stage in
+                      Boston.
+                    </p>
+                    <a href="#" class="text-danger fw-bold text-decoration-none"
+                      >Read more &rarr;</a
+                    >
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <p id="news-status" class="small text-secondary mb-3" role="status" aria-live="polite"></p>
-
-            <div
-              id="news-error"
-              class="alert alert-danger d-none align-items-center justify-content-between gap-3"
-              role="alert"
-            >
-              <span id="news-error-text"></span>
-              <button type="button" id="news-retry" class="btn btn-sm btn-outline-light">
-                Try again
-              </button>
-            </div>
-
-            <div id="news-empty" class="news-state d-none">
-              <i class="bi bi-search fs-2 d-block mb-2"></i>
-              <p class="mb-0">Nothing found. Try another keyword or topic.</p>
-            </div>
-
-            <div id="news-grid" class="row row-cols-1 row-cols-md-2 g-4"></div>
           </div>
         </div>
       </div>
@@ -192,8 +246,6 @@
         </div>
         <p class="small text-secondary mb-0">
           &copy; 2026 GAMEPORTAL. All rights reserved.
-          &middot; News via
-          <a href="https://gnews.io/" class="text-secondary" target="_blank" rel="noopener noreferrer">GNews</a>
         </p>
       </div>
     </footer>
