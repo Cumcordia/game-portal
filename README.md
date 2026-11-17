@@ -1,6 +1,6 @@
 # GamePortal - Gaming News and Reviews
 
-Responsive 5-page website about gaming news, upcoming releases, reviews, screenshots and user feedback. Built with HTML5, CSS3 and Bootstrap 5.3 and extended with JavaScript and jQuery for interactivity and dynamic behavior.
+Responsive 5-page website about gaming news, upcoming releases, reviews, screenshots and user feedback. Built with HTML5, CSS3 and Bootstrap 5.3, and extended with JavaScript, jQuery and a public news API.
 
 **Live Website:** https://cumcordia.github.io/game-portal/
 
@@ -16,9 +16,9 @@ Responsive 5-page website about gaming news, upcoming releases, reviews, screens
 
 ## Project Overview
 
-GamePortal is a 5-page website built with semantic HTML5, CSS3 and Bootstrap 5.3. The site includes a home feed with top stories, a release calendar with a game table, an about page with team profiles, a screenshot gallery and a feedback/registration page.
+GamePortal is a 5-page website built with semantic HTML5, CSS3 and Bootstrap 5.3. It includes a live gaming news feed, a release calendar with a game table, an about page with team profiles, a screenshot gallery and a contact/FAQ page.
 
-The project was first built as a static midterm website and then extended for the endterm with client-side form validation, real-time search and filtering, a dynamic releases table, article pop-ups and an image gallery with a lightbox. The same topic, structure and repository are used throughout, and all HTML, CSS and responsiveness requirements remain intact. All JavaScript lives in `/js/script.js`.
+The project started as a static midterm website, expanded in the endterm with validation, search, filtering, CRUD and a lightbox, and was completed for the final with a Light/Dark theme toggle, `localStorage` sign-in persistence, a jQuery FAQ and live API integration. All JavaScript files are organized in `/js/`.
 
 ---
 
@@ -28,59 +28,60 @@ The project was first built as a static midterm website and then extended for th
 
 - **5 Responsive Pages:** Home (`index.html`), About (`about.html`), Releases (`releases.html`), Gallery (`gallery.html`) and Contact (`contact.html`).
 - **Responsive Design:** Bootstrap 5 grid + custom media queries for mobile and tablet screens.
-- **Layout:** Flexbox navigation/cards, CSS Grid screenshot gallery, absolutely positioned badges.
-- **Single CSS File:** External styles in `/css/style.css` using `:root` color variables.
+- **Layout:** Flexbox navigation/cards and CSS Grid screenshot gallery.
+- **Light / Dark Theme (`theme.js`):** Theme toggle in the navbar on every page, built with `:root` / `[data-bs-theme="light"]` CSS variables and saved in `localStorage` across refreshes.
 
 **Home (`index.html`)**
 
-- News feed with top stories and news cards.
-- Clicking a card opens a Bootstrap modal with the full article, tags and image, filled dynamically with jQuery.
+- Live gaming news loaded from the GNews API via `fetch()` in JSON format, with keyword search, topic filters, refresh and error/empty-state handling.
+- Top 5 sidebar and Bootstrap article modals populated dynamically with jQuery.
 
 **About (`about.html`)**
 
-- Team profile cards.
-- Real-time search bar that filters cards as the user types (`.on("input")`), case-insensitive, by name, role, bio and tags.
-- Category filter buttons that work together with the search bar; results update instantly with jQuery `.fadeIn()` / `.fadeOut()` and a "no results" message.
-- Animated statistic counters (jQuery `.animate()`).
+- Team profile cards with real-time search (`.on("input")`) and category filter buttons updating with `.fadeIn()` / `.fadeOut()`.
+- Animated statistic counters using jQuery `.animate()`.
 
 **Releases (`releases.html`)**
 
-- Full CRUD functionality: dynamically display games, add new   entries, edit existing records, cancel editing, and delete games with confirmation.
-- Required-field validation and score validation from 0 to 10.
-- Data is stored in memory and resets on page reload.
+- Full CRUD table: add, edit, cancel and delete game entries with required-field and 0–10 score validation (stored in memory for the session).
 
 **Gallery (`gallery.html`)**
 
-- Screenshot grid built with HTML, CSS Grid and Bootstrap.
-- jQuery lightbox that opens on click or Enter/Space, with previous/next arrows, close button, image counter and title.
-- Smooth `.fadeIn()`, `.fadeOut()` and `.animate()` transitions when opening, closing and switching images.
-- Keyboard (Esc, left/right arrows) and touch-swipe navigation.
+- Screenshot grid with a jQuery lightbox supporting arrows, keyboard (Esc, Left/Right), touch swipe and `.fadeIn()` / `.fadeOut()` / `.animate()` transitions.
 
 **Contact (`contact.html`)**
 
-- Feedback form with `:focus` states and validation styles.
-- Registration form with client-side validation: required-field checks for name, email, password and confirmation; email format check using a Regular Expression; password strength indicator (Weak / Medium / Strong); password confirmation match.
-- Real-time feedback while typing and on blur using Bootstrap `is-valid` / `is-invalid` states and error messages.
-- Submission is blocked if validation fails; a Bootstrap alert explains what to fix and focus moves to the first invalid field.
+- Feedback form with validation styles.
+- Sign-in form with RegEx email validation, password strength indicator and confirmation match. Non-sensitive session state is saved in `localStorage` (`auth.js`) to show the user's name and a Logout button across all pages (passwords are not saved).
+- 5-question FAQ section (`faq.js`) with smooth jQuery `.slideToggle()` animations and `+` / `−` indicators.
 
 ---
 
 ## Technologies Used
 
-- HTML5
-- CSS3
+- HTML5 & CSS3 (CSS Variables, Flexbox, Grid)
 - Bootstrap 5.3
-- JavaScript (ES6)
+- JavaScript (ES6), `fetch()` API & `localStorage`
 - jQuery
 - Regular Expressions (RegEx)
-- Git and GitHub Pages
+- Git & GitHub Pages
 
 ---
 
 ## Member Contributions
 
-| Member         | Responsibilities                                                                                                                                                                                                                                       |
-| :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Alikhan**    | Repository setup, base templates, shared navigation and footer, global `:root` CSS variables. `index.html` (news feed, jQuery article modals) and `gallery.html` (gallery grid, lightbox with arrows and fade/animate transitions).                    |
-| **Abilmansur** | `contact.html` (feedback form, registration form with RegEx email validation, password strength indicator, password confirmation, real-time feedback) and `releases.html` (table structure, `:nth-child()` styling, dynamic CRUD table with adding, editing, canceling edits, and deletion with confirmation ). |
-| **Sergey**     | `about.html` (team profiles, CSS Grid layout, image positioning overlays, real-time search, category filters, animated counters) and project documentation (`README.md`).                                                                              |
+| Member         | Responsibilities                                                                                                                                                                                           |
+| :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Alikhan**    | Base templates, global `:root` CSS, `index.html` (modals and GNews API `fetch()` integration with search, filters and error handling), `gallery.html` (lightbox) and GitHub Pages deployment verification. |
+| **Abilmansur** | `contact.html` (feedback and validated sign-in form), `auth.js` (`localStorage` sign-in/logout state across all pages), `releases.html` (dynamic CRUD table) and `README.md`.                              |
+| **Sergey**     | `about.html` (team profiles, search, category filters, animated counters), `theme.js` and light/dark CSS theming across all pages, `faq.js` (jQuery `.slideToggle()` FAQ) and group report.                |
+
+---
+
+## AI Usage Acknowledgment
+
+AI tools were used as supporting development tools and are credited on the website and in the project report:
+
+- **Claude:** Reviewed and debugged the public API integration.
+- **ChatGPT:** Assisted with examples and debugging for `localStorage` sign-in/logout.
+- **Gemini:** Assisted with debugging light/dark theme toggle.
