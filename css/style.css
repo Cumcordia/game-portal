@@ -139,6 +139,10 @@ body {
   object-fit: cover;
 }
 
+.card-news .card-title {
+  color: var(--text);
+}
+
 .sidebar-box {
   padding: 20px;
 }

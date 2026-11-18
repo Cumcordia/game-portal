@@ -845,7 +845,7 @@ $(function () {
 
     const $body = $("<div>", { class: "card-body d-flex flex-column" }).append(
       $meta,
-      $("<h5>", { class: "card-title text-white", text: article.title }),
+      $("<h5>", { class: "card-title", text: article.title }),
       $("<p>", {
         class: "card-text text-secondary flex-grow-1",
         text: article.description || "",
@@ -961,7 +961,7 @@ $(function () {
       $topList.append(
         $("<button>", {
           type: "button",
-          class: "btn btn-sm btn-outline-light mt-2",
+          class: "btn btn-sm btn-outline-secondary mt-2",
           text: "Try again",
         }).on("click", function () {
           loadTop(true);
