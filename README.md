@@ -83,5 +83,5 @@ The project started as a static midterm website, expanded in the endterm with va
 AI tools were used as supporting development tools and are credited on the website and in the project report:
 
 - **Claude:** Reviewed and debugged the public API integration.
-- **ChatGPT:** Assisted with examples and debugging for `localStorage` sign-in/logout.
+- **ChatGPT:** Assisted with examples and debugging for `localStorage` sign-in/logout, helped style the rainbow greeting.
 - **Gemini:** Assisted with debugging light/dark theme toggle.
