@@ -699,40 +699,51 @@ $(function () {
     return "Could not reach the news service. Check your connection.";
   }
 
-  function requestNews(params, cacheKey, force) {
+    function requestNews(params, cacheKey, force, signal) {
     const cached = force ? null : readCache(cacheKey);
-    if (cached) return $.Deferred().resolve(cached).promise();
+    if (cached) return Promise.resolve(cached);
 
-    const xhr = $.ajax({
-      url: ENDPOINT,
-      method: "GET",
-      dataType: "json",
-      data: $.extend(
+    const query = new URLSearchParams(
+      Object.assign(
         PROXY_URL ? { lang: "en" } : { lang: "en", apikey: API_KEY },
         params,
       ),
-    });
-    xhr.done(function (data) {
-      writeCache(cacheKey, data);
-    });
-    return xhr;
+    );
+
+    return fetch(ENDPOINT + "?" + query.toString(), { signal: signal })
+      .then(function (response) {
+        if (!response.ok) {
+          const error = new Error("HTTP " + response.status);
+          error.status = response.status;
+          throw error;
+        }
+        return response.json();
+      })
+      .then(function (data) {
+        writeCache(cacheKey, data);
+        return data;
+      });
   }
 
   function loadFallback(query) {
-    return $.getJSON(FALLBACK_URL).then(
-      function (data) {
+    return fetch(FALLBACK_URL)
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then(function (data) {
         const q = (query || "").toLowerCase();
         return $.grep(data.articles || [], function (a) {
           return (
             !q ||
-            (a.title + " " + (a.description || "")).toLowerCase().indexOf(q) !== -1
+            (a.title + " " + (a.description || "")).toLowerCase().indexOf(q) !==
+              -1
           );
         });
-      },
-      function () {
+      })
+      .catch(function () {
         return null;
-      },
-    );
+      });
   }
 
   function formatDate(iso) {
@@ -901,7 +912,7 @@ $(function () {
     bootstrap.Modal.getOrCreateInstance($modalEl[0]).show();
   }
 
-  function loadNews(force) {
+    function loadNews(force) {
     if (!PROXY_URL && API_KEY === "API-KEY-HERE") {
       showError("Add your GNews API key to API_KEY in js/script.js.");
       return;
@@ -909,20 +920,25 @@ $(function () {
 
     const q = buildQuery();
     const token = ++newsToken;
-    if (newsXhr && newsXhr.abort) newsXhr.abort();
+    if (newsController) newsController.abort();
+    newsController = new AbortController();
 
     showLoading();
 
-    newsXhr = requestNews({ q: q, max: PAGE_SIZE }, q, force);
-    newsXhr
-      .done(function (data) {
+    requestNews(
+      { q: q, max: PAGE_SIZE },
+      q,
+      force,
+      newsController.signal,
+    ).then(
+      function (data) {
         if (token !== newsToken) return;
         showArticles(data.articles || []);
-      })
-      .fail(function (xhr) {
-        if (token !== newsToken) return;
+      },
+      function (err) {
+        if (token !== newsToken || err.name === "AbortError") return;
 
-        loadFallback(state.query).done(function (saved) {
+        loadFallback(state.query).then(function (saved) {
           if (token !== newsToken) return;
           if (saved) {
             showArticles(
@@ -930,10 +946,11 @@ $(function () {
               "Live news is unavailable. Showing saved articles.",
             );
           } else {
-            showError(errorMessage(xhr.status));
+            showError(errorMessage(err.status));
           }
         });
-      });
+      },
+    );
   }
 
   function showTopMessage(text, withRetry) {
@@ -992,14 +1009,15 @@ $(function () {
     });
   }
 
-  function loadTop(force) {
+    function loadTop(force) {
     if (!PROXY_URL && API_KEY === "API-KEY-HERE") {
       showTopMessage("Add your GNews API key to load top stories.", false);
       return;
     }
 
     const token = ++topToken;
-    if (topXhr && topXhr.abort) topXhr.abort();
+    if (topController) topController.abort();
+    topController = new AbortController();
 
     showTopLoading();
 
@@ -1007,28 +1025,29 @@ $(function () {
       .toISOString()
       .replace(/\.\d{3}Z$/, "Z");
 
-    topXhr = requestNews(
+    requestNews(
       { q: TOPICS.all, from: from, sortby: "relevance", max: 5 },
       "top:week",
       force,
-    );
-    topXhr
-      .done(function (data) {
+      topController.signal,
+    ).then(
+      function (data) {
         if (token !== topToken) return;
         renderTop(data.articles || []);
-      })
-      .fail(function (xhr) {
-        if (token !== topToken) return;
+      },
+      function (err) {
+        if (token !== topToken || err.name === "AbortError") return;
 
-        loadFallback("").done(function (saved) {
+        loadFallback("").then(function (saved) {
           if (token !== topToken) return;
           if (saved && saved.length) {
             renderTop(saved);
           } else {
-            showTopMessage(errorMessage(xhr.status), true);
+            showTopMessage(errorMessage(err.status), true);
           }
         });
-      });
+      },
+    );
   }
 
   $filters.on("click", "[data-topic]", function () {
