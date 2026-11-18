@@ -657,9 +657,9 @@ $(function () {
   const $modalBody = $("#articleModalBody");
 
   const state = { topic: "all", query: "" };
-  let newsXhr = null;
+  let newsController = null;
   let newsToken = 0;
-  let topXhr = null;
+  let topController = null;
   let topToken = 0;
   let searchTimer = null;
 
